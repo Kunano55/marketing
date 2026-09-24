@@ -3,55 +3,45 @@ from PIL import Image, ImageDraw, ImageFont
 
 def create_rich_menu():
     W, H = 1200, 810
-    SPLIT_Y = 405  # A is 1200x405, B, C, D are 400x405 each
+    SPLIT_Y = 405  # A is 1200x405, B/C/D are 400x405 each
     
-    # Base Image
-    base = Image.new("RGBA", (W, H), (252, 250, 246, 255))
+    base = Image.new("RGBA", (W, H), (253, 251, 247, 255))
     draw = ImageDraw.Draw(base)
     
-    # Load fonts
+    # Load fonts (BIG & BOLD for LINE Mobile App)
     font_dir = "temp_fonts"
-    f_title_xl = ImageFont.truetype(os.path.join(font_dir, "Prompt-Bold.ttf"), 38)
-    f_title_lg = ImageFont.truetype(os.path.join(font_dir, "Prompt-Bold.ttf"), 30)
-    f_title_md = ImageFont.truetype(os.path.join(font_dir, "Prompt-Bold.ttf"), 25)
-    f_title_sm = ImageFont.truetype(os.path.join(font_dir, "Prompt-Bold.ttf"), 20)
-    f_body_lg  = ImageFont.truetype(os.path.join(font_dir, "Prompt-Medium.ttf"), 20)
-    f_body_md  = ImageFont.truetype(os.path.join(font_dir, "Prompt-Medium.ttf"), 17)
-    f_body_sm  = ImageFont.truetype(os.path.join(font_dir, "Prompt-Regular.ttf"), 15)
-    f_tag      = ImageFont.truetype(os.path.join(font_dir, "Prompt-Bold.ttf"), 14)
-    f_btn      = ImageFont.truetype(os.path.join(font_dir, "Prompt-Bold.ttf"), 19)
+    f_hero_xl   = ImageFont.truetype(os.path.join(font_dir, "Prompt-Bold.ttf"), 52)
+    f_hero_sub  = ImageFont.truetype(os.path.join(font_dir, "Prompt-Bold.ttf"), 30)
+    f_card_main = ImageFont.truetype(os.path.join(font_dir, "Prompt-Bold.ttf"), 40)
+    f_card_sub  = ImageFont.truetype(os.path.join(font_dir, "Prompt-Bold.ttf"), 24)
+    f_btn_big   = ImageFont.truetype(os.path.join(font_dir, "Prompt-Bold.ttf"), 26)
+    f_btn_hero  = ImageFont.truetype(os.path.join(font_dir, "Prompt-Bold.ttf"), 28)
+    f_badge     = ImageFont.truetype(os.path.join(font_dir, "Prompt-Bold.ttf"), 19)
+    f_prod_name = ImageFont.truetype(os.path.join(font_dir, "Prompt-Bold.ttf"), 22)
+    f_prod_tag  = ImageFont.truetype(os.path.join(font_dir, "Prompt-Medium.ttf"), 16)
 
     # Color Palette
     C_WHITE        = (255, 255, 255, 255)
-    C_CREAM_LIGHT  = (253, 250, 245, 255)
-    C_CREAM_WARM   = (248, 242, 230, 255)
-    C_DARK_OLIVE   = (46, 58, 31, 255)
-    C_LEAF_GREEN   = (105, 136, 56, 255)
-    C_LIGHT_GREEN  = (169, 194, 90, 255)
-    C_SOFT_GREEN   = (232, 242, 215, 255)
+    C_CREAM_LIGHT  = (254, 251, 246, 255)
+    C_DARK_OLIVE   = (44, 56, 30, 255)
+    C_LEAF_GREEN   = (102, 134, 52, 255)
+    C_SOFT_GREEN   = (230, 242, 212, 255)
     C_AMBER        = (225, 115, 15, 255)
-    C_AMBER_SOFT   = (254, 242, 220, 255)
-    C_AMBER_BORDER = (245, 165, 55, 255)
-    C_MUTED        = (115, 115, 105, 255)
-    C_DIVIDER      = (224, 220, 212, 255)
-    C_TEAL_SOFT    = (230, 242, 246, 255)
-    C_TEAL_DARK    = (38, 92, 115, 255)
+    C_AMBER_SOFT   = (255, 242, 218, 255)
+    C_MUTED        = (120, 120, 110, 255)
+    C_DIVIDER      = (220, 216, 208, 255)
 
     # =============================================================
     # SECTION A: Top Banner (1200 x 405)
     # =============================================================
     draw.rectangle([0, 0, W, SPLIT_Y], fill=C_CREAM_LIGHT)
 
-    # Decorative background organic curves
+    # Organic soft green background curves
     bg_decor = Image.new("RGBA", (W, SPLIT_Y), (0, 0, 0, 0))
     d_bg = ImageDraw.Draw(bg_decor)
-    d_bg.ellipse([580, -90, 1360, 520], fill=(236, 244, 222, 150))
-    d_bg.ellipse([720, -40, 1340, 460], fill=(225, 237, 206, 170))
-    d_bg.ellipse([-50, -50, 280, 280], fill=(248, 240, 225, 120))
-
-    # Dot pattern accents
-    for x_d, y_d in [(570, 30), (595, 50), (575, 75), (1145, 330), (1170, 350)]:
-        d_bg.ellipse([x_d, y_d, x_d + 8, y_d + 8], fill=(169, 194, 90, 150))
+    d_bg.ellipse([540, -100, 1380, 520], fill=(235, 244, 220, 160))
+    d_bg.ellipse([680, -40, 1360, 470], fill=(224, 237, 204, 190))
+    d_bg.ellipse([-60, -60, 300, 300], fill=(248, 240, 225, 130))
     base.alpha_composite(bg_decor, (0, 0))
     draw = ImageDraw.Draw(base)
 
@@ -63,208 +53,176 @@ def create_rich_menu():
         if bbox:
             logo_img = logo_img.crop(bbox)
         lw, lh = logo_img.size
-        target_lh = 78
+        target_lh = 84
         target_lw = int(lw * (target_lh / lh))
         logo_resized = logo_img.resize((target_lw, target_lh), Image.Resampling.LANCZOS)
         base.paste(logo_resized, (50, 25), logo_resized)
 
-    # --- Welcome & Headline ---
-    draw.text((50, 120), "ยินดีต้อนรับสู่ GrobGrob", font=f_title_xl, fill=C_DARK_OLIVE)
-    draw.text((50, 172), "กรอบอร่อยเพลิน เคี้ยวสนุกทุกคำ!", font=f_title_lg, fill=C_LEAF_GREEN)
-    draw.text((50, 218), "ช้อปออนไลน์ สั่งซื้อง่าย 24 ชม. ส่งตรงความสดใหม่ถึงบ้าน", font=f_body_md, fill=C_MUTED)
+    # --- Headline ---
+    draw.text((50, 122), "ช้อปออนไลน์ สั่งเลย!", font=f_hero_xl, fill=C_DARK_OLIVE)
+    draw.text((50, 188), "กรอบอร่อยเพลิน เคี้ยวสนุกทุกคำ", font=f_hero_sub, fill=C_LEAF_GREEN)
 
-    # --- CTA Button (Website) ---
-    btn_x, btn_y, btn_w, btn_h = 50, 265, 350, 62
-    draw.rounded_rectangle([btn_x + 2, btn_y + 4, btn_x + btn_w + 2, btn_y + btn_h + 4], radius=31, fill=(46, 58, 31, 50))
-    draw.rounded_rectangle([btn_x, btn_y, btn_x + btn_w, btn_y + btn_h], radius=31, fill=C_DARK_OLIVE)
-    # Cart icon circle
-    draw.ellipse([btn_x + 14, btn_y + 12, btn_x + 50, btn_y + 48], fill=C_LEAF_GREEN)
-    draw.rectangle([btn_x + 24, btn_y + 26, btn_x + 40, btn_y + 36], fill=C_WHITE)
-    draw.ellipse([btn_x + 26, btn_y + 37, btn_x + 30, btn_y + 41], fill=C_WHITE)
-    draw.ellipse([btn_x + 34, btn_y + 37, btn_x + 38, btn_y + 41], fill=C_WHITE)
-    draw.text((btn_x + 60, btn_y + 16), "เข้าสู่หน้าเว็บไซต์หลัก ›", font=f_btn, fill=C_WHITE)
+    # --- Big CTA Button ---
+    btn_x, btn_y, btn_w, btn_h = 50, 252, 340, 72
+    draw.rounded_rectangle([btn_x + 3, btn_y + 4, btn_x + btn_w + 3, btn_y + btn_h + 4], radius=36, fill=(44, 56, 30, 40))
+    draw.rounded_rectangle([btn_x, btn_y, btn_x + btn_w, btn_y + btn_h], radius=36, fill=C_DARK_OLIVE)
+    # Cart Icon inside button
+    draw.ellipse([btn_x + 18, btn_y + 15, btn_x + 60, btn_y + 57], fill=C_LEAF_GREEN)
+    draw.rectangle([btn_x + 30, btn_y + 32, btn_x + 48, btn_y + 44], fill=C_WHITE)
+    draw.ellipse([btn_x + 32, btn_y + 45, btn_x + 37, btn_y + 50], fill=C_WHITE)
+    draw.ellipse([btn_x + 42, btn_y + 45, btn_x + 47, btn_y + 50], fill=C_WHITE)
+    draw.text((btn_x + 74, btn_y + 16), "เข้าสู่เว็บไซต์ ›", font=f_btn_hero, fill=C_WHITE)
 
-    # Free shipping note
-    draw.ellipse([btn_x + 6, btn_y + 78, btn_x + 18, btn_y + 90], fill=C_AMBER)
-    draw.text((btn_x + 24, btn_y + 73), "ส่งฟรีทั่วประเทศ เมื่อสั่งซื้อครบ 150 บาท", font=f_body_sm, fill=C_DARK_OLIVE)
+    # Shipping badge pill
+    badge_x, badge_y, badge_w, badge_h = 50, 338, 340, 44
+    draw.rounded_rectangle([badge_x, badge_y, badge_x + badge_w, badge_y + badge_h], radius=22, fill=C_SOFT_GREEN)
+    draw.ellipse([badge_x + 14, badge_y + 16, badge_x + 26, badge_y + 28], fill=C_AMBER)
+    draw.text((badge_x + 34, badge_y + 8), "ส่งฟรีทั่วประเทศ เมื่อสั่งครบ 150.-", font=f_badge, fill=C_DARK_OLIVE)
 
     # --- Right Side: 3 Product Cards ---
     prod_cards = [
-        {"file": "assets/seaweed-sheet.png", "title": "สาหร่ายแผ่น", "sub": "กรอบเต็มแผ่น", "pos": (595, 25),  "size": (175, 175)},
-        {"file": "assets/seaweed-roll.png",  "title": "สาหร่ายม้วน",  "sub": "กรุบกรอบสะใจ", "pos": (790, 25),  "size": (175, 175)},
-        {"file": "assets/seaweed-flakes.png","title": "ผงโรยข้าว",   "sub": "หอมคลุกเคล้า", "pos": (985, 25),  "size": (175, 175)}
+        {"file": "assets/seaweed-sheet.png", "title": "สาหร่ายแผ่น", "sub": "กรอบเต็มแผ่น", "pos": (585, 25),  "size": (185, 235)},
+        {"file": "assets/seaweed-roll.png",  "title": "สาหร่ายม้วน",  "sub": "กรุบกรอบสะใจ", "pos": (785, 25),  "size": (185, 235)},
+        {"file": "assets/seaweed-flakes.png","title": "ผงโรยข้าว",   "sub": "หอมคลุกข้าว", "pos": (985, 25),  "size": (185, 235)}
     ]
 
     for p in prod_cards:
         px, py = p["pos"]
         pw, ph = p["size"]
-        card_h = ph + 54
         
-        # Shadow
-        draw.rounded_rectangle([px + 3, py + 4, px + pw + 3, py + card_h + 4], radius=20, fill=(0, 0, 0, 22))
-        # Card Background
-        draw.rounded_rectangle([px, py, px + pw, py + card_h], radius=20, fill=C_WHITE, outline=(225, 235, 215, 255), width=2)
+        # Soft shadow
+        draw.rounded_rectangle([px + 2, py + 4, px + pw + 2, py + ph + 4], radius=22, fill=(0, 0, 0, 16))
+        draw.rounded_rectangle([px, py, px + pw, py + ph], radius=22, fill=C_WHITE, outline=(225, 235, 215, 255), width=2)
 
         # Image
         if os.path.exists(p["file"]):
             img_p = Image.open(p["file"]).convert("RGBA")
             pad = 8
-            img_w, img_h = pw - pad*2, ph - pad*2
+            img_w, img_h = pw - pad*2, ph - 68
             img_resized = img_p.resize((img_w, img_h), Image.Resampling.LANCZOS)
             mask_p = Image.new("L", (img_w, img_h), 0)
-            ImageDraw.Draw(mask_p).rounded_rectangle([0, 0, img_w, img_h], radius=14, fill=255)
+            ImageDraw.Draw(mask_p).rounded_rectangle([0, 0, img_w, img_h], radius=16, fill=255)
             base.paste(img_resized, (px + pad, py + pad), mask_p)
 
-        # Text below image
-        draw.text((px + 12, py + ph - 2), p["title"], font=f_title_sm, fill=C_DARK_OLIVE)
-        draw.text((px + 12, py + ph + 24), p["sub"], font=f_body_sm, fill=C_LEAF_GREEN)
+        # Large Product Name
+        draw.text((px + 14, py + ph - 58), p["title"], font=f_prod_name, fill=C_DARK_OLIVE)
+        draw.text((px + 14, py + ph - 28), p["sub"], font=f_prod_tag, fill=C_LEAF_GREEN)
 
-    # --- Right Side Bottom: Highlights / Trust Banner ---
-    trust_x, trust_y, trust_w, trust_h = 595, 290, 565, 85
-    draw.rounded_rectangle([trust_x + 2, trust_y + 3, trust_x + trust_w + 2, trust_y + trust_h + 3], radius=16, fill=(0, 0, 0, 16))
-    draw.rounded_rectangle([trust_x, trust_y, trust_x + trust_w, trust_y + trust_h], radius=16, fill=(255, 255, 255, 240), outline=(225, 235, 215, 255), width=2)
-    
-    t_badges = ["อบไม่ทอด 100%", "มี อย. รับรอง", "12 รสชาติยอดนิยม", "ส่งไว 1-2 วัน"]
-    tb_x = trust_x + 18
-    for tb_text in t_badges:
-        bbox = draw.textbbox((0, 0), tb_text, font=f_tag)
-        bw = bbox[2] - bbox[0] + 20
-        draw.rounded_rectangle([tb_x, trust_y + 26, tb_x + bw, trust_y + 58], radius=16, fill=C_SOFT_GREEN)
-        draw.ellipse([tb_x + 8, trust_y + 38, tb_x + 14, trust_y + 44], fill=C_LEAF_GREEN)
-        draw.text((tb_x + 18, trust_y + 32), tb_text, font=f_tag, fill=C_DARK_OLIVE)
-        tb_x += bw + 10
+    # Trust Pill Bar at the bottom of Right Side
+    bar_x, bar_y, bar_w, bar_h = 585, 280, 585, 102
+    draw.rounded_rectangle([bar_x + 2, bar_y + 4, bar_x + bar_w + 2, bar_y + bar_h + 4], radius=22, fill=(0, 0, 0, 14))
+    draw.rounded_rectangle([bar_x, bar_y, bar_x + bar_w, bar_y + bar_h], radius=22, fill=(255, 255, 255, 245), outline=(225, 235, 215, 255), width=2)
+    draw.text((bar_x + 26, bar_y + 18), "สาหร่ายเกาหลีแท้ 100% • 12 รสชาติสุดฮิต", font=f_card_sub, fill=C_DARK_OLIVE)
+    draw.text((bar_x + 26, bar_y + 56), "อบไม่ทอด • ไม่ใช้วัตถุกันเสีย • มี อย. รับรอง", font=f_card_sub, fill=C_LEAF_GREEN)
 
     # =============================================================
     # GRID DIVIDERS
     # =============================================================
-    # Horizontal Divider at y = 405 (exact 1200x405 split)
-    draw.line([(0, SPLIT_Y), (W, SPLIT_Y)], fill=C_DIVIDER, width=3)
-    # Vertical Dividers in bottom section (3x 400x405)
-    draw.line([(400, SPLIT_Y), (400, H)], fill=C_DIVIDER, width=3)
-    draw.line([(800, SPLIT_Y), (800, H)], fill=C_DIVIDER, width=3)
+    draw.line([(0, SPLIT_Y), (W, SPLIT_Y)], fill=C_DIVIDER, width=4)
+    draw.line([(400, SPLIT_Y), (400, H)], fill=C_DIVIDER, width=4)
+    draw.line([(800, SPLIT_Y), (800, H)], fill=C_DIVIDER, width=4)
+
+    # Helper function to paste centered 3D icon with clean rounded container
+    def paste_centered_icon(icon_path, center_x, center_y, icon_size=155):
+        if os.path.exists(icon_path):
+            im = Image.open(icon_path).convert("RGBA")
+            im = im.resize((icon_size, icon_size), Image.Resampling.LANCZOS)
+            
+            mask = Image.new("L", (icon_size, icon_size), 0)
+            ImageDraw.Draw(mask).rounded_rectangle([0, 0, icon_size, icon_size], radius=30, fill=255)
+            
+            card_pad = 5
+            bx = center_x - icon_size // 2
+            by = center_y - icon_size // 2
+            
+            # Subtle card border & shadow
+            draw.rounded_rectangle([bx - card_pad + 2, by - card_pad + 3, bx + icon_size + card_pad + 2, by + icon_size + card_pad + 3], radius=32, fill=(0, 0, 0, 12))
+            draw.rounded_rectangle([bx - card_pad, by - card_pad, bx + icon_size + card_pad, by + icon_size + card_pad], radius=32, fill=C_WHITE, outline=(225, 230, 220, 255), width=2)
+            
+            base.paste(im, (bx, by), mask)
+
+    # Helper to draw centered text
+    def draw_centered_text(text, font, fill, center_x, y):
+        bbox = draw.textbbox((0, 0), text, font=font)
+        text_w = bbox[2] - bbox[0]
+        x = center_x - text_w // 2
+        draw.text((x, y), text, font=font, fill=fill)
+
+    # Button coordinates
+    btn_w_bottom = 330
+    btn_h_bottom = 64
+    btn_y_bottom = SPLIT_Y + 306
 
     # =============================================================
-    # SECTION B: "สินค้า" (400 x 405, x: 0..400, y: 405..810)
+    # SECTION B: "สินค้าทั้งหมด" (400 x 405, x: 0..400, y: 405..810)
     # =============================================================
-    draw.rectangle([0, SPLIT_Y + 3, 398, H], fill=C_WHITE)
-    draw.rectangle([0, SPLIT_Y, 398, SPLIT_Y + 6], fill=C_LEAF_GREEN)
+    draw.rectangle([0, SPLIT_Y + 4, 398, H], fill=C_WHITE)
+    draw.rectangle([0, SPLIT_Y, 398, SPLIT_Y + 8], fill=C_LEAF_GREEN)
 
-    # Category Pill
-    draw.rounded_rectangle([30, SPLIT_Y + 28, 135, SPLIT_Y + 58], radius=15, fill=C_SOFT_GREEN)
-    draw.text((43, SPLIT_Y + 33), "12 รสชาติ", font=f_tag, fill=C_DARK_OLIVE)
+    # Centered 3D Snack Icon
+    paste_centered_icon("assets/icon_3d_snack.jpg", 200, SPLIT_Y + 105, 150)
 
-    # Content
-    draw.text((30, SPLIT_Y + 68), "สินค้าทั้งหมด", font=f_title_lg, fill=C_DARK_OLIVE)
-    draw.text((30, SPLIT_Y + 114), "แผ่น • ม้วน • โรยข้าว", font=f_body_lg, fill=C_LEAF_GREEN)
-    draw.text((30, SPLIT_Y + 146), "เลือกรสชาติที่ใช่ สดใหม่ทุกซอง", font=f_body_sm, fill=C_MUTED)
+    # BIG BOLD Title & Subtitle
+    draw_centered_text("สินค้าทั้งหมด", f_card_main, C_DARK_OLIVE, 200, SPLIT_Y + 192)
+    draw_centered_text("12 รสชาติยอดนิยม", f_card_sub, C_LEAF_GREEN, 200, SPLIT_Y + 244)
 
-    # Product Visual Display Card
-    if os.path.exists("assets/roll_bbq.png"):
-        p_b = Image.open("assets/roll_bbq.png").convert("RGBA")
-        p_b = p_b.resize((130, 130), Image.Resampling.LANCZOS)
-        mask_b = Image.new("L", (130, 130), 0)
-        ImageDraw.Draw(mask_b).rounded_rectangle([0, 0, 130, 130], radius=18, fill=255)
-        # Background card
-        draw.rounded_rectangle([240, SPLIT_Y + 38, 376, SPLIT_Y + 174], radius=20, fill=(248, 245, 238, 255), outline=(225, 230, 218, 255), width=2)
-        base.paste(p_b, (243, SPLIT_Y + 41), mask_b)
-
-    # Feature List in B
-    b_pts = ["• แผ่นใหญ่ อบกรอบเต็มคำ", "• ม้วนกรุบกรอบ เคี้ยวเพลิน", "• ผงโรยข้าว คลุกอะไรก็อร่อย"]
-    for i, pt in enumerate(b_pts):
-        draw.text((30, SPLIT_Y + 182 + (i * 28)), pt, font=f_body_sm, fill=C_DARK_OLIVE)
-
-    # Action Button
-    b_btn_y = SPLIT_Y + 310
-    draw.rounded_rectangle([30, b_btn_y, 370, b_btn_y + 54], radius=27, fill=C_DARK_OLIVE)
-    draw.text((120, b_btn_y + 14), "ดูเมนูสินค้าทั้งหมด ›", font=f_btn, fill=C_WHITE)
+    # Prominent Tap Button
+    b_bx = 200 - btn_w_bottom // 2
+    draw.rounded_rectangle([b_bx + 2, btn_y_bottom + 3, b_bx + btn_w_bottom + 2, btn_y_bottom + btn_h_bottom + 3], radius=32, fill=(44, 56, 30, 35))
+    draw.rounded_rectangle([b_bx, btn_y_bottom, b_bx + btn_w_bottom, btn_y_bottom + btn_h_bottom], radius=32, fill=C_DARK_OLIVE)
+    draw_centered_text("ดูสินค้าทั้งหมด ›", f_btn_big, C_WHITE, 200, btn_y_bottom + 15)
 
     # =============================================================
-    # SECTION C: "ส่วนลด" (400 x 405, x: 400..800, y: 405..810)
+    # SECTION C: "คูปองส่วนลด" (400 x 405, x: 400..800, y: 405..810)
     # =============================================================
-    draw.rectangle([402, SPLIT_Y + 3, 798, H], fill=(255, 253, 248, 255))
-    draw.rectangle([402, SPLIT_Y, 798, SPLIT_Y + 6], fill=C_AMBER)
+    draw.rectangle([402, SPLIT_Y + 4, 798, H], fill=(255, 253, 248, 255))
+    draw.rectangle([402, SPLIT_Y, 798, SPLIT_Y + 8], fill=C_AMBER)
 
-    # Promo Pill
-    draw.rounded_rectangle([430, SPLIT_Y + 28, 565, SPLIT_Y + 58], radius=15, fill=C_AMBER_SOFT)
-    draw.text((443, SPLIT_Y + 33), "PROMO CODE", font=f_tag, fill=C_AMBER)
+    # Centered 3D Coupon Icon
+    paste_centered_icon("assets/icon_3d_coupon.jpg", 600, SPLIT_Y + 105, 150)
 
-    # Title & Sub
-    draw.text((430, SPLIT_Y + 68), "คูปองส่วนลด", font=f_title_lg, fill=C_DARK_OLIVE)
-    draw.text((430, SPLIT_Y + 114), "ลดทันที 10% ทุกคำสั่งซื้อ", font=f_body_lg, fill=(205, 85, 10, 255))
-    draw.text((430, SPLIT_Y + 146), "เพียงกรอกโค้ดตอนสั่งซื้อหน้าเว็บ", font=f_body_sm, fill=C_MUTED)
+    # BIG BOLD Title & Subtitle
+    draw_centered_text("คูปองส่วนลด", f_card_main, C_DARK_OLIVE, 600, SPLIT_Y + 192)
+    draw_centered_text("ลด 10% โค้ด: GROB10", f_card_sub, C_AMBER, 600, SPLIT_Y + 244)
 
-    # Voucher Ticket Box Graphic (Centered)
-    v_box_x, v_box_y, v_box_w, v_box_h = 430, SPLIT_Y + 185, 340, 95
-    # Ticket shape
-    draw.rounded_rectangle([v_box_x, v_box_y, v_box_x + v_box_w, v_box_y + v_box_h], radius=14, fill=(255, 246, 230, 255), outline=C_AMBER_BORDER, width=2)
-    # Side notches
-    draw.ellipse([v_box_x - 10, v_box_y + 35, v_box_x + 10, v_box_y + 55], fill=(255, 253, 248, 255), outline=C_AMBER_BORDER, width=2)
-    draw.ellipse([v_box_x + v_box_w - 10, v_box_y + 35, v_box_x + v_box_w + 10, v_box_y + 55], fill=(255, 253, 248, 255), outline=C_AMBER_BORDER, width=2)
-    # Dashed divider inside voucher
-    for dy in range(v_box_y + 12, v_box_y + v_box_h - 10, 10):
-        draw.line([(v_box_x + 115, dy), (v_box_x + 115, dy + 5)], fill=(235, 175, 110, 255), width=2)
-    
-    # Left voucher content
-    draw.text((v_box_x + 22, v_box_y + 16), "10%", font=f_title_xl, fill=(215, 80, 10, 255))
-    draw.text((v_box_x + 36, v_box_y + 58), "DISCOUNT", font=f_tag, fill=C_DARK_OLIVE)
-    # Right voucher content
-    draw.text((v_box_x + 135, v_box_y + 20), "โค้ด: GROB10", font=f_title_md, fill=(205, 85, 10, 255))
-    draw.text((v_box_x + 135, v_box_y + 56), "ใช้ได้ไม่จำกัดจำนวนครั้ง", font=f_body_sm, fill=C_MUTED)
-
-    # Action Button
-    c_btn_y = SPLIT_Y + 310
-    draw.rounded_rectangle([430, c_btn_y, 770, c_btn_y + 54], radius=27, fill=C_AMBER)
-    draw.text((530, c_btn_y + 14), "กดรับคูปองส่วนลด ›", font=f_btn, fill=C_WHITE)
+    # Prominent Tap Button
+    c_bx = 600 - btn_w_bottom // 2
+    draw.rounded_rectangle([c_bx + 2, btn_y_bottom + 3, c_bx + btn_w_bottom + 2, btn_y_bottom + btn_h_bottom + 3], radius=32, fill=(225, 115, 15, 35))
+    draw.rounded_rectangle([c_bx, btn_y_bottom, c_bx + btn_w_bottom, btn_y_bottom + btn_h_bottom], radius=32, fill=C_AMBER)
+    draw_centered_text("กดรับคูปอง ›", f_btn_big, C_WHITE, 600, btn_y_bottom + 15)
 
     # =============================================================
-    # SECTION D: "ติดต่อเรา / แอดมิน" (400 x 405, x: 800..1200, y: 405..810)
+    # SECTION D: "ติดต่อสอบถาม" (400 x 405, x: 800..1200, y: 405..810)
     # =============================================================
-    draw.rectangle([802, SPLIT_Y + 3, W, H], fill=C_WHITE)
-    draw.rectangle([802, SPLIT_Y, W, SPLIT_Y + 6], fill=C_DARK_OLIVE)
+    draw.rectangle([802, SPLIT_Y + 4, W, H], fill=C_WHITE)
+    draw.rectangle([802, SPLIT_Y, W, SPLIT_Y + 8], fill=C_DARK_OLIVE)
 
-    # Care Pill
-    draw.rounded_rectangle([830, SPLIT_Y + 28, 960, SPLIT_Y + 58], radius=15, fill=C_TEAL_SOFT)
-    draw.text((843, SPLIT_Y + 33), "ONLINE CARE", font=f_tag, fill=C_TEAL_DARK)
+    # Centered 3D Support Headset Icon
+    paste_centered_icon("assets/icon_3d_support.jpg", 1000, SPLIT_Y + 105, 150)
 
-    # Title & Sub
-    draw.text((830, SPLIT_Y + 68), "ติดต่อสอบถาม", font=f_title_lg, fill=C_DARK_OLIVE)
-    draw.text((830, SPLIT_Y + 114), "แชทกับแอดมิน GrobGrob", font=f_body_lg, fill=C_LEAF_GREEN)
-    draw.text((830, SPLIT_Y + 146), "บริการให้คำปรึกษาและดูแลลูกค้า", font=f_body_sm, fill=C_MUTED)
+    # BIG BOLD Title & Subtitle
+    draw_centered_text("ติดต่อสอบถาม", f_card_main, C_DARK_OLIVE, 1000, SPLIT_Y + 192)
+    draw_centered_text("แชทกับแอดมิน GrobGrob", f_card_sub, C_LEAF_GREEN, 1000, SPLIT_Y + 244)
 
-    # Clean bullet points in D
-    d_pts = [
-        "• สอบถามรายละเอียดสินค้า",
-        "• ติดตามสถานะพัสดุ / จัดส่ง",
-        "• สมัครสมาชิก & รับสิทธิ์พิเศษ"
-    ]
-    for i, pt in enumerate(d_pts):
-        draw.text((830, SPLIT_Y + 182 + (i * 28)), pt, font=f_body_sm, fill=C_DARK_OLIVE)
+    # Prominent Tap Button
+    d_bx = 1000 - btn_w_bottom // 2
+    draw.rounded_rectangle([d_bx + 2, btn_y_bottom + 3, d_bx + btn_w_bottom + 2, btn_y_bottom + btn_h_bottom + 3], radius=32, fill=(44, 56, 30, 35))
+    draw.rounded_rectangle([d_bx, btn_y_bottom, d_bx + btn_w_bottom, btn_y_bottom + btn_h_bottom], radius=32, fill=C_DARK_OLIVE)
+    draw_centered_text("คุยกับแอดมิน ›", f_btn_big, C_WHITE, 1000, btn_y_bottom + 15)
 
-    # Action Button
-    d_btn_y = SPLIT_Y + 310
-    draw.rounded_rectangle([830, d_btn_y, 1170, d_btn_y + 54], radius=27, fill=C_DARK_OLIVE)
-    draw.text((930, d_btn_y + 14), "คุยกับแอดมินทันที ›", font=f_btn, fill=C_WHITE)
-
-    # =============================================================
-    # Corner Badges A, B, C, D
-    # =============================================================
+    # Subtle Section Label Badges in corner
     lbl_font = ImageFont.truetype(os.path.join(font_dir, "Prompt-Bold.ttf"), 16)
-    
-    # A
     draw.rounded_rectangle([W - 48, 16, W - 18, 42], radius=13, fill=(0, 0, 0, 18))
     draw.text((W - 38, 18), "A", font=lbl_font, fill=C_MUTED)
-    
-    # B
-    draw.rounded_rectangle([360, SPLIT_Y + 15, 388, SPLIT_Y + 40], radius=12, fill=(0, 0, 0, 15))
-    draw.text((369, SPLIT_Y + 17), "B", font=lbl_font, fill=C_MUTED)
-    
-    # C
-    draw.rounded_rectangle([760, SPLIT_Y + 15, 788, SPLIT_Y + 40], radius=12, fill=(0, 0, 0, 15))
-    draw.text((769, SPLIT_Y + 17), "C", font=lbl_font, fill=C_MUTED)
-    
-    # D
-    draw.rounded_rectangle([W - 45, SPLIT_Y + 15, W - 17, SPLIT_Y + 40], radius=12, fill=(0, 0, 0, 15))
-    draw.text((W - 35, SPLIT_Y + 17), "D", font=lbl_font, fill=C_MUTED)
+
+    draw.rounded_rectangle([360, SPLIT_Y + 16, 388, SPLIT_Y + 41], radius=12, fill=(0, 0, 0, 15))
+    draw.text((369, SPLIT_Y + 18), "B", font=lbl_font, fill=C_MUTED)
+
+    draw.rounded_rectangle([760, SPLIT_Y + 16, 788, SPLIT_Y + 41], radius=12, fill=(0, 0, 0, 15))
+    draw.text((769, SPLIT_Y + 18), "C", font=lbl_font, fill=C_MUTED)
+
+    draw.rounded_rectangle([W - 45, SPLIT_Y + 16, W - 17, SPLIT_Y + 41], radius=12, fill=(0, 0, 0, 15))
+    draw.text((W - 35, SPLIT_Y + 18), "D", font=lbl_font, fill=C_MUTED)
 
     # Save output
     output_png = "richmenu_1200x810.png"
@@ -273,7 +231,7 @@ def create_rich_menu():
     base.convert("RGB").save(output_jpg, quality=92, optimize=True)
     base.convert("RGB").save("assets/richmenu_1200x810.png", quality=95)
     base.convert("RGB").save("assets/richmenu_1200x810.jpg", quality=92, optimize=True)
-    print("Done! Re-generated rich menu with clean typography.")
+    print("Done! Generated refined mobile LINE rich menu.")
 
 if __name__ == "__main__":
     create_rich_menu()

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>เข้าสู่ระบบ - GrobGrob สาหร่ายอบกรอบแท้ 100%</title>
+  <meta name="description"
+    content="เข้าสู่ระบบสมาชิก GrobGrob เพื่อดำเนินการสั่งซื้อสินค้า สะสมแต้ม และรับสิทธิพิเศษ" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+</head>
+
+<body class="auth-page-bg">
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Header / Navbar -->
+  <header id="navbar" class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo-wrapper" title="GrobGrob หน้าแรก">
+        <img src="assets/logo.png" alt="GrobGrob โลโก้" class="logo-img" />
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">หน้าแรก</a></li>
+          <li><a href="products.html" class="nav-link">สินค้าทั้งหมด</a></li>
+          <li><a href="cart.html" class="nav-link">ตะกร้าสินค้า 🛒</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="register.html" class="btn-primary">
+          <span>📝 สมัครสมาชิก</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Login Form Section -->
+  <section class="auth-section">
+    <div class="container">
+      <div class="auth-card-container" style="max-width: 460px;">
+
+        <div class="auth-header">
+          <span class="badge badge-cream mb-12">🔑 MEMBER LOGIN</span>
+          <h2>เข้าสู่ระบบสมาชิก</h2>
+          <p>กรอกชื่อผู้ใช้หรืออีเมลและรหัสผ่านเพื่อสั่งซื้อสินค้า</p>
+        </div>
+
+        <form id="loginForm" class="auth-form-single">
+          <div class="form-group">
+            <label for="loginIdentifier">ชื่อผู้ใช้ หรือ อีเมล <span class="required">*</span></label>
+            <input type="text" id="loginIdentifier" required placeholder="username หรือ email@example.com"
+              class="form-input" />
+          </div>
+
+          <div class="form-group">
+            <label for="loginPassword">รหัสผ่าน <span class="required">*</span></label>
+            <input type="password" id="loginPassword" required placeholder="รหัสผ่านของคุณ" class="form-input" />
+          </div>
+
+          <div class="form-group" style="margin-top: 10px;">
+            <label class="checkbox-container">
+              <input type="checkbox" id="rememberMe" checked />
+              <span>จดจำการเข้าสู่ระบบไว้ในอุปกรณ์นี้</span>
+            </label>
+          </div>
+
+          <div class="auth-submit-box" style="margin-top: 24px;">
+            <button type="submit" class="btn-primary btn-auth-submit" style="width: 100%;">
+              <span>🔑 เข้าสู่ระบบ</span>
+            </button>
+            <p class="auth-switch-text" style="margin-top: 16px;">
+              ยังไม่มีบัญชีสมาชิก? <a href="register.html">สมัครสมาชิกใหม่ที่นี่</a>
+            </p>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container text-center">
+      <p>&copy; 2026 GrobGrob Co., Ltd. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginForm = document.getElementById('loginForm');
+      if (!loginForm) return;
+
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const identifier = document.getElementById('loginIdentifier').value.trim().toLowerCase();
+        const password = document.getElementById('loginPassword').value;
+
+        const usersList = window.GrobAuth ? window.GrobAuth.getUsers() : [];
+
+        const userMatch = usersList.find(u =>
+          (u.username.toLowerCase() === identifier || u.email.toLowerCase() === identifier) &&
+          u.password === password
+        );
+
+        if (userMatch) {
+          if (window.GrobAuth) {
+            window.GrobAuth.setCurrentUser(userMatch);
+          }
+          alert(`🎉 ยินดีต้อนรับกลับ คุณ ${userMatch.fullName || userMatch.username}!`);
+          window.location.href = 'products.html';
+        } else {
+          alert('❌ ชื่อผู้ใช้/อีเมล หรือ รหัสผ่านไม่ถูกต้อง! (หรือกดสมัครสมาชิกใหม่หากยังไม่มีบัญชี)');
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

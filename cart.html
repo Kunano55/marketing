@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ตะกร้าสินค้าของคุณ - GrobGrob สาหร่ายอบกรอบแท้ 100%</title>
+  <meta name="description" content="ตรวจสอบรายการสั่งซื้อ ตะกร้าสินค้า สาหร่ายอบกรอบ GrobGrob ชำระเงินง่าย ปลอดภัย จัดส่งรวดเร็ว" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+</head>
+
+<body>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Navbar -->
+  <header id="navbar" class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo-wrapper" title="GrobGrob หน้าแรก">
+        <img src="assets/logo.png" alt="GrobGrob โลโก้" class="logo-img" />
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">หน้าแรก</a></li>
+          <li><a href="products.html" class="nav-link">สินค้าทั้งหมด</a></li>
+          <li><a href="javascript:void(0)" onclick="openTasteQuizModal()" class="nav-link nav-recommend-pill">🪄 แนะนำรสชาติ</a></li>
+          <li><a href="index.html#story" class="nav-link">เกี่ยวกับเรา</a></li>
+          <li><a href="index.html#testimonials" class="nav-link">รีวิวลูกค้า</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="cart.html" class="cart-icon-btn" aria-label="ดูตะกร้าสินค้า">
+          <span>🛒</span>
+          <span id="cartBadge" class="cart-badge">0</span>
+        </a>
+
+        <a href="products.html" class="btn-primary">
+          <span>เลือกสินค้าเพิ่ม</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Cart Hero Banner -->
+  <section class="page-banner">
+    <div class="container text-center">
+      <span class="badge badge-cream mb-12">🛒 YOUR SHOPPING CART</span>
+      <h1 class="page-title">ตะกร้าสินค้า <span>ของคุณ</span></h1>
+      <p class="page-subtitle">
+        ตรวจสอบรายการสินค้า ปรับเปลี่ยนจำนวน ใส่โค้ดส่วนลด และดำเนินการชำระเงินได้อย่างสะดวกและปลอดภัย
+      </p>
+    </div>
+  </section>
+
+  <!-- Cart Main Content Section -->
+  <section class="cart-page-section">
+    <div class="container">
+      <div class="cart-page-grid">
+        
+        <!-- Left: Cart Items List Table -->
+        <div class="cart-items-main">
+          <div class="cart-section-header">
+            <h3>รายการสินค้าในตะกร้า</h3>
+            <a href="products.html" class="link-back-shop">⬅️ เลือกซื้อสินค้าเพิ่มเติม</a>
+          </div>
+
+          <div id="fullCartTableContainer">
+            <!-- Rendered dynamically by app.js -->
+          </div>
+        </div>
+
+        <!-- Right: Cart Order Summary Sidebar -->
+        <div class="cart-summary-sidebar">
+          <div class="summary-card">
+            <h3 class="summary-title">สรุปยอดคำสั่งซื้อ</h3>
+
+            <div class="free-shipping-bar-box">
+              <div class="shipping-info-text">
+                🚚 **จัดส่งฟรี!** เมื่อสั่งซื้อครบ 150 บาทขึ้นไป
+              </div>
+            </div>
+
+            <div class="summary-row">
+              <span>ราคาสินค้ารวม</span>
+              <strong id="cartSummarySubtotal">0 ฿</strong>
+            </div>
+
+            <div class="summary-row">
+              <span>ค่าจัดส่ง</span>
+              <strong id="cartSummaryShipping">0 ฿</strong>
+            </div>
+
+            <div class="summary-row">
+              <span>ส่วนลด</span>
+              <strong id="cartSummaryDiscount" style="color: var(--color-leaf-medium);">-0 ฿</strong>
+            </div>
+
+            <!-- Coupon Input -->
+            <div class="coupon-box">
+              <input type="text" id="couponInput" placeholder="กรอกโค้ดส่วนลด (ลอง GROB10)" class="coupon-input" />
+              <button onclick="applyCoupon()" class="btn-coupon">ใช้โค้ด</button>
+            </div>
+
+            <hr class="summary-divider" />
+
+            <div class="summary-row total-row">
+              <span>ยอดชำระสุทธิ</span>
+              <span id="cartSummaryGrandTotal" class="grand-total-price">0 ฿</span>
+            </div>
+
+            <button id="checkoutBtn" class="btn-primary btn-checkout-full">
+              <span>🔒 ดำเนินการชำระเงิน</span>
+            </button>
+
+            <div class="secure-badge-box">
+              <span>🛡️ ชำระเงินปลอดภัย 100% | รองรับ โอนเงิน / PromptPay / เก็บเงินปลายทาง</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact" class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="logo-wrapper footer-logo">
+            <img src="assets/logo.png" alt="GrobGrob โลโก้" class="logo-img" />
+          </a>
+          <p class="footer-about">
+            GrobGrob (กรอบกรอบ) สาหร่ายอบกรอบแท้ 100% ไม่ใช้น้ำมันทอด ไร้ MSG กรอบ อร่อย มีประโยชน์ ทานเพลินทุกวัน
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-title">ลิงก์รวดเร็ว</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">หน้าแรก</a></li>
+            <li><a href="products.html">สินค้าทั้งหมด (12 รสชาติ)</a></li>
+            <li><a href="index.html#story">เกี่ยวกับเรา</a></li>
+            <li><a href="cart.html">ตะกร้าสินค้า</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-title">ติดต่อเรา</h4>
+          <ul class="footer-contact">
+            <li>📍 123/45 ถนนพัฒนาการ แขวงสวนหลวง กรุงเทพฯ 10250</li>
+            <li>📞 02-123-4567 / 089-999-8888</li>
+            <li>✉️ contact@grobgrob.com</li>
+            <li>💬 Line: @grobgrob</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 GrobGrob Co., Ltd. All Rights Reserved. Designed for Health & Snack Lovers.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

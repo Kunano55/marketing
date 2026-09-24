@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>สินค้าทั้งหมด 12 รสชาติ - GrobGrob สาหร่ายอบกรอบแท้ 100%</title>
+  <meta name="description"
+    content="เลือกซื้อสาหร่ายอบกรอบ GrobGrob ครบทั้ง 12 รสชาติสุดอร่อย ไม่ใช้น้ำมันทอด ไร้ MSG ทานเพลินได้ประโยชน์" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+</head>
+
+<body>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Navbar -->
+  <header id="navbar" class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo-wrapper" title="GrobGrob หน้าแรก">
+        <img src="assets/logo.png" alt="GrobGrob โลโก้" class="logo-img" />
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">หน้าแรก</a></li>
+          <li><a href="products.html" class="nav-link active"
+              style="color: var(--color-leaf-medium); font-weight: 700;">สินค้าทั้งหมด</a></li>
+          <li><a href="index.html#story" class="nav-link">เกี่ยวกับเรา</a></li>
+          <li><a href="index.html#testimonials" class="nav-link">รีวิวลูกค้า</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="cart.html" class="cart-icon-btn" aria-label="ดูตะกร้าสินค้า">
+          <span>🛒</span>
+          <span id="cartBadge" class="cart-badge">0</span>
+        </a>
+
+        <a href="cart.html" class="btn-primary">
+          <span>ดูตะกร้าสินค้า</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Products Hero Banner -->
+  <section class="page-banner">
+    <div class="container text-center">
+      <span class="badge badge-cream mb-12">🍃 GROBGROB CATALOG</span>
+      <h1 class="page-title">สินค้าทั้งหมด <span>12 รสชาติเด็ด</span></h1>
+      <p class="page-subtitle">
+        คัดสรรสาหร่ายทะเลธรรมชาติน้ำลึก อบด้วยลมร้อน ไร้น้ำมันทอด 100% ไร้ MSG มีประโยชน์และอร่อยฟูทุกคำ
+      </p>
+      <div style="margin-top: 20px;">
+        <button class="btn-sparkle-quiz" onclick="openTasteQuizModal()">
+          <span>🪄 ไม่แน่ใจว่าจะเลือกรสไหน? ให้ AI ช่วยแนะนำตามความชอบ</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section class="products-section" style="padding-top: 40px;">
+    <div class="container">
+      <!-- Interactive Taste Quiz Banner -->
+      <div class="recommendation-quiz-banner fade-up-element">
+        <div class="quiz-banner-text">
+          <h3><span>🪄</span> ค้นหารสชาติที่ตรงกับความชอบของคุณ</h3>
+          <p>ตอบคำถามความชอบเพียง 3 ข้อ เพื่อระบบคำนวณและแนะนำรสชาติที่เหมาะกับคุณที่สุดพร้อมคะแนน Match Score 90%+</p>
+        </div>
+        <button class="btn-sparkle-quiz" onclick="openTasteQuizModal()">
+          <span>✨ ทำแบบสอบถาม (30 วินาที)</span>
+        </button>
+      </div>
+
+      <!-- Personalized Recommendations Output Container -->
+      <div id="recommendationsSection" class="recommendations-container"></div>
+
+      <div class="products-grid">
+
+        <!-- Product 1: Sheet -->
+        <div id="product-card-sheet" class="product-card fade-up-element">
+          <span class="badge badge-green product-badge-tag">🌿 สูตรกลมกล่อม</span>
+          <div class="product-img-wrapper">
+            <img src="assets/seaweed-sheet.png" alt="สาหร่ายอบกรอบแผ่น" class="product-img" />
+            <button class="product-quick-view" onclick="openProductModal('sheet')">🔍 ดูรายละเอียด</button>
+          </div>
+          <div class="product-content">
+            <div class="product-rating">
+              ★ 4.9 <span class="rating-count">(142 รีวิว)</span>
+            </div>
+            <h3 class="product-title">สาหร่ายอบกรอบแผ่น <span class="flavor-name-highlight">(รสออริจินัล)</span></h3>
+
+            <div class="flavor-selection-bar">
+              <span class="flavor-label">เลือกรสชาติ:</span>
+              <div class="flavor-pills">
+                <button class="flavor-pill active" data-flavor="original" onclick="selectFlavor('sheet', 'original')"
+                  title="รสออริจินัล">🌿 ออริจินัล</button>
+                <button class="flavor-pill" data-flavor="spicy" onclick="selectFlavor('sheet', 'spicy')"
+                  title="รสเผ็ดสไปซี่">🌶️ สไปซี่</button>
+                <button class="flavor-pill" data-flavor="bbq" onclick="selectFlavor('sheet', 'bbq')"
+                  title="รสบาร์บีคิว">🍖 บาร์บีคิว</button>
+                <button class="flavor-pill" data-flavor="cheese" onclick="selectFlavor('sheet', 'cheese')"
+                  title="รสฮอกไกโดชีส">🧀 ชีส</button>
+              </div>
+            </div>
+
+            <p class="product-desc">หอมกลิ่นสาหร่ายทะเลแท้ๆ ปรุงรสกลมกล่อมด้วยเกลือทะเลธรรมชาติและน้ำมันงาบริสุทธิ์</p>
+
+            <div class="product-footer">
+              <div class="product-price">
+                <span class="price-amount">39 ฿</span>
+                <span class="price-unit">/ ห่อ</span>
+              </div>
+              <button class="add-cart-btn" onclick="addToCart('sheet')">
+                <span>🛒 หยิบใส่ตะกร้า</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 2: Roll -->
+        <div id="product-card-roll" class="product-card fade-up-element">
+          <span class="badge badge-cream product-badge-tag">🌿 คลาสสิก</span>
+          <div class="product-img-wrapper">
+            <img src="assets/seaweed-roll.png" alt="สาหร่ายม้วนอบกรอบ" class="product-img" />
+            <button class="product-quick-view" onclick="openProductModal('roll')">🔍 ดูรายละเอียด</button>
+          </div>
+          <div class="product-content">
+            <div class="product-rating">
+              ★ 4.8 <span class="rating-count">(98 รีวิว)</span>
+            </div>
+            <h3 class="product-title">สาหร่ายม้วนอบกรอบ <span class="flavor-name-highlight">(รสออริจินัล)</span></h3>
+
+            <div class="flavor-selection-bar">
+              <span class="flavor-label">เลือกรสชาติ:</span>
+              <div class="flavor-pills">
+                <button class="flavor-pill active" data-flavor="original" onclick="selectFlavor('roll', 'original')"
+                  title="รสออริจินัล">🌿 ออริจินัล</button>
+                <button class="flavor-pill" data-flavor="spicy" onclick="selectFlavor('roll', 'spicy')"
+                  title="รสเผ็ดเกาหลี">🌶️ สไปซี่</button>
+                <button class="flavor-pill" data-flavor="wasabi" onclick="selectFlavor('roll', 'wasabi')"
+                  title="รสวาสาบิ">🍣 วาสาบิ</button>
+                <button class="flavor-pill" data-flavor="bbq" onclick="selectFlavor('roll', 'bbq')"
+                  title="รสบาร์บีคิว">🍖 บาร์บีคิว</button>
+              </div>
+            </div>
+
+            <p class="product-desc">ม้วนกรอบหอม รสชาติคลาสสิกตามฉบับ GrobGrob เคี้ยวมันส์ทุกแท่ง</p>
+
+            <div class="product-footer">
+              <div class="product-price">
+                <span class="price-amount">35 ฿</span>
+                <span class="price-unit">/ ห่อ</span>
+              </div>
+              <button class="add-cart-btn" onclick="addToCart('roll')">
+                <span>🛒 หยิบใส่ตะกร้า</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 3: Flakes -->
+        <div id="product-card-flakes" class="product-card fade-up-element">
+          <span class="badge badge-green product-badge-tag">🌿 โรยเพลิน</span>
+          <div class="product-img-wrapper">
+            <img src="assets/seaweed-flakes.png" alt="สาหร่ายอบกรอบผง" class="product-img" />
+            <button class="product-quick-view" onclick="openProductModal('flakes')">🔍 ดูรายละเอียด</button>
+          </div>
+          <div class="product-content">
+            <div class="product-rating">
+              ★ 5.0 <span class="rating-count">(210 รีวิว)</span>
+            </div>
+            <h3 class="product-title">สาหร่ายอบกรอบผง โรยข้าว <span
+                class="flavor-name-highlight">(รสออริจินัลงาหอม)</span></h3>
+
+            <div class="flavor-selection-bar">
+              <span class="flavor-label">เลือกรสชาติ:</span>
+              <div class="flavor-pills">
+                <button class="flavor-pill active" data-flavor="original" onclick="selectFlavor('flakes', 'original')"
+                  title="รสออริจินัล">🌿 ออริจินัล</button>
+                <button class="flavor-pill" data-flavor="spicy" onclick="selectFlavor('flakes', 'spicy')"
+                  title="รสสไปซี่กิมจิ">🌶️ กิมจิ</button>
+                <button class="flavor-pill" data-flavor="saltedegg" onclick="selectFlavor('flakes', 'saltedegg')"
+                  title="รสไข่เค็ม">🥚 ไข่เค็ม</button>
+                <button class="flavor-pill" data-flavor="garlic" onclick="selectFlavor('flakes', 'garlic')"
+                  title="รสเนยกระเทียม">🧄 กระเทียม</button>
+              </div>
+            </div>
+
+            <p class="product-desc">หอมกลิ่นงาขาวคั่วใหม่และสาหร่ายอบกรอบ ปรุงรสกลมกล่อมสไตล์ฟุริคาเกะแท้</p>
+
+            <div class="product-footer">
+              <div class="product-price">
+                <span class="price-amount">45 ฿</span>
+                <span class="price-unit">/ กระปุก</span>
+              </div>
+              <button class="add-cart-btn" onclick="addToCart('flakes')">
+                <span>🛒 หยิบใส่ตะกร้า</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- All 12 Flavors Grid Showcase -->
+  <section class="all-flavors-section">
+    <div class="container">
+      <div class="section-header fade-up-element">
+        <span class="section-subtitle">ALL 12 FLAVOR VARIANTS</span>
+        <h2 class="section-title">เจาะลึก 12 รสชาติเด็ด GrobGrob</h2>
+        <p class="section-desc">คลิกเลือกสั่งซื้อรสชาติที่คุณชื่นชอบได้ทันที</p>
+      </div>
+
+      <div class="grid-4-cols fade-up-element">
+
+        <!-- Sheet Flavors -->
+        <div class="flavor-item-card">
+          <div class="flavor-item-img-box">
+            <img src="assets/seaweed-sheet.png" alt="สาหร่ายแผ่น รสออริจินัล" />
+            <span class="flavor-badge-tag">🌿 ออริจินัล</span>
+          </div>
+          <h4>สาหร่ายแผ่น รสออริจินัล</h4>
+          <p>กลมกล่อม หอมเกลือทะเลธรรมชาติ</p>
+          <div class="flavor-item-footer">
+            <span class="item-price">39 ฿</span>
+            <button class="btn-sm-cart" onclick="addToCart('sheet', 'original')">🛒 ใส่ตะกร้า</button>
+          </div>
+        </div>
+
+        <div class="flavor-item-card">
+          <div class="flavor-item-img-box">
+            <img src="assets/sheet_spicy.png" alt="สาหร่ายแผ่น รสเผ็ดสไปซี่" />
+            <span class="flavor-badge-tag tag-spicy">🌶️ สไปซี่พริกคั่ว</span>
+          </div>
+          <h4>สาหร่ายแผ่น รสเผ็ดสไปซี่</h4>
+          <p>แซ่บจัดจ้านด้วยพริกคั่วสูตรเด็ด</p>
+          <div class="flavor-item-footer">
+            <span class="item-price">39 ฿</span>
+            <button class="btn-sm-cart" onclick="addToCart('sheet', 'spicy')">🛒 ใส่ตะกร้า</button>
+          </div>
+        </div>
+
+        <div class="flavor-item-card">
+          <div class="flavor-item-img-box">
+            <img src="assets/sheet_bbq.png" alt="สาหร่ายแผ่น รสบาร์บีคิว" />
+            <span class="flavor-badge-tag tag-bbq">🍖 บาร์บีคิวรมควัน</span>
+          </div>
+          <h4>สาหร่ายแผ่น รสบาร์บีคิว</h4>
+          <p>หอมกลิ่นรมควันบาร์บีคิวเตาถ่าน</p>
+          <div class="flavor-item-footer">
+            <span class="item-price">39 ฿</span>
+            <button class="btn-sm-cart" onclick="addToCart('sheet', 'bbq')">🛒 ใส่ตะกร้า</button>
+          </div>
+        </div>
+
+        <div class="flavor-item-card">
+          <div class="flavor-item-img-box">
+            <img src="assets/sheet_cheese.png" alt="สาหร่ายแผ่น รสฮอกไกโดชีส" />
+            <span class="flavor-badge-tag tag-cheese">🧀 ฮอกไกโดชีส</span>
+          </div>
+          <h4>สาหร่ายแผ่น รสฮอกไกโดชีส</h4>
+          <p>เข้มข้นชีสพรีเมียม นัวหอมมัน</p>
+          <div class="flavor-item-footer">
+            <span class="item-price">39 ฿</span>
+            <button class="btn-sm-cart" onclick="addToCart('sheet', 'cheese')">🛒 ใส่ตะกร้า</button>
+          </div>
+        </div>
+
+        <!-- Roll Flavors -->
+        <div class="flavor-item-card">
+          <div class="flavor-item-img-box">
+            <img src="assets/seaweed-roll.png" alt="สาหร่ายม้วน รสออริจินัล" />
+            <span class="flavor-badge-tag">🌿 ม้วนออริจินัล</span>
+          </div>
+          <h4>สาหร่ายม้วน รสออริจินัล</h4>
+          <p>ม้วนกรอบหอม เคี้ยวมันส์ทุกแท่ง</p>
+          <div class="flavor-item-footer">
+            <span class="item-price">35 ฿</span>
+            <button class="btn-sm-cart" onclick="addToCart('roll', 'original')">🛒 ใส่ตะกร้า</button>
+          </div>
+        </div>
+
+        <div class="flavor-item-card">
+          <div class="flavor-item-img-box">
+            <img src="assets/roll_spicy.png" alt="สาหร่ายม้วน รสเผ็ดเกาหลี" />
+            <span class="flavor-badge-tag tag-spicy">🌶️ เผ็ดเกาหลี</span>
+          </div>
+          <h4>สาหร่ายม้วน รสเผ็ดเกาหลี</h4>
+          <p>เข้มข้นซอสเกาหลี สไปซี่โดนใจ</p>
+          <div class="flavor-item-footer">
+            <span class="item-price">35 ฿</span>
+            <button class="btn-sm-cart" onclick="addToCart('roll', 'spicy')">🛒 ใส่ตะกร้า</button>
+          </div>
+        </div>
+
+        <div class="flavor-item-card">
+          <div class="flavor-item-img-box">
+            <img src="assets/roll_wasabi.png" alt="สาหร่ายม้วน รสวาสาบิ" />
+            <span class="flavor-badge-tag tag-wasabi">🍣 วาสาบิญี่ปุ่น</span>
+          </div>
+          <h4>สาหร่ายม้วน รสวาสาบิ</h4>
+          <p>หอมซี้ดจี๊ดขึ้นสมอง วาสาบิแท้</p>
+          <div class="flavor-item-footer">
+            <span class="item-price">35 ฿</span>
+            <button class="btn-sm-cart" onclick="addToCart('roll', 'wasabi')">🛒 ใส่ตะกร้า</button>
+          </div>
+        </div>
+
+        <div class="flavor-item-card">
+          <div class="flavor-item-img-box">
+            <img src="assets/roll_bbq.png" alt="สาหร่ายม้วน รสบาร์บีคิว" />
+            <span class="flavor-badge-tag tag-bbq">🍖 บาร์บีคิว</span>
+          </div>
+          <h4>สาหร่ายม้วน รสบาร์บีคิว</h4>
+          <p>แท่งม้วนกรอบเคลือบผงบาร์บีคิว</p>
+          <div class="flavor-item-footer">
+            <span class="item-price">35 ฿</span>
+            <button class="btn-sm-cart" onclick="addToCart('roll', 'bbq')">🛒 ใส่ตะกร้า</button>
+          </div>
+        </div>
+
+        <!-- Flakes Flavors -->
+        <div class="flavor-item-card">
+          <div class="flavor-item-img-box">
+            <img src="assets/seaweed-flakes.png" alt="สาหร่ายผง รสออริจินัล" />
+            <span class="flavor-badge-tag">🌿 โรยงาหอม</span>
+          </div>
+          <h4>สาหร่ายผง รสออริจินัล</h4>
+          <p>ผงสาหร่ายบดฟู งาขาวคั่วหอม</p>
+          <div class="flavor-item-footer">
+            <span class="item-price">45 ฿</span>
+            <button class="btn-sm-cart" onclick="addToCart('flakes', 'original')">🛒 ใส่ตะกร้า</button>
+          </div>
+        </div>
+
+        <div class="flavor-item-card">
+          <div class="flavor-item-img-box">
+            <img src="assets/flakes_spicy.png" alt="สาหร่ายผง รสสไปซี่กิมจิ" />
+            <span class="flavor-badge-tag tag-spicy">🌶️ สไปซี่กิมจิ</span>
+          </div>
+          <h4>สาหร่ายผง รสสไปซี่กิมจิ</h4>
+          <p>เผ็ดเปรี้ยวกลมกล่อมสไตล์กิมจิ</p>
+          <div class="flavor-item-footer">
+            <span class="item-price">45 ฿</span>
+            <button class="btn-sm-cart" onclick="addToCart('flakes', 'spicy')">🛒 ใส่ตะกร้า</button>
+          </div>
+        </div>
+
+        <div class="flavor-item-card">
+          <div class="flavor-item-img-box">
+            <img src="assets/flakes_saltedegg.png" alt="สาหร่ายผง รสไข่เค็มลาวา" />
+            <span class="flavor-badge-tag tag-cheese">🥚 ไข่เค็มลาวา</span>
+          </div>
+          <h4>สาหร่ายผง รสไข่เค็มลาวา</h4>
+          <p>ผงไข่เค็มแท้เข้มข้น นัวหอมมัน</p>
+          <div class="flavor-item-footer">
+            <span class="item-price">45 ฿</span>
+            <button class="btn-sm-cart" onclick="addToCart('flakes', 'saltedegg')">🛒 ใส่ตะกร้า</button>
+          </div>
+        </div>
+
+        <div class="flavor-item-card">
+          <div class="flavor-item-img-box">
+            <img src="assets/flakes_garlic.png" alt="สาหร่ายผง รสเนยกระเทียม" />
+            <span class="flavor-badge-tag tag-garlic">🧄 เนยกระเทียม</span>
+          </div>
+          <h4>สาหร่ายผง รสเนยกระเทียม</h4>
+          <p>หอมเนยสดแท้ผสมกระเทียมเจียว</p>
+          <div class="flavor-item-footer">
+            <span class="item-price">45 ฿</span>
+            <button class="btn-sm-cart" onclick="addToCart('flakes', 'garlic')">🛒 ใส่ตะกร้า</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick View Modal -->
+  <div id="quickViewModal" class="modal-overlay">
+    <div class="modal-box">
+      <button id="closeModalBtn" class="close-modal-btn">&times;</button>
+      <div id="modalBoxContent"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer id="contact" class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="logo-wrapper footer-logo">
+            <img src="assets/logo.png" alt="GrobGrob โลโก้" class="logo-img" />
+          </a>
+          <p class="footer-about">
+            GrobGrob (กรอบกรอบ) สาหร่ายอบกรอบแท้ 100% ไม่ใช้น้ำมันทอด ไร้ MSG กรอบ อร่อย มีประโยชน์ ทานเพลินทุกวัน
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-title">ลิงก์รวดเร็ว</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">หน้าแรก</a></li>
+            <li><a href="products.html">สินค้าทั้งหมด (12 รสชาติ)</a></li>
+            <li><a href="index.html#story">เกี่ยวกับเรา</a></li>
+            <li><a href="cart.html">ตะกร้าสินค้า</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-title">ติดต่อเรา</h4>
+          <ul class="footer-contact">
+            <li>📍 123/45 ถนนพัฒนาการ แขวงสวนหลวง กรุงเทพฯ 10250</li>
+            <li>📞 02-123-4567 / 089-999-8888</li>
+            <li>✉️ contact@grobgrob.com</li>
+            <li>💬 Line: @grobgrob</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 GrobGrob Co., Ltd. All Rights Reserved. Designed for Health & Snack Lovers.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GrobGrob</title>
+  <meta name="description"
+    content="GrobGrob (กรอบกรอบ) กรอบอร่อยเพลิน เคี้ยวสนุกทุกคำ สาหร่ายอบกรอบแท้ 100% ไม่ใช้น้ำมันทอด ไร้สารกันเสีย ไร้ MSG กรอบ อร่อย มีประโยชน์" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+</head>
+
+<body>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Navbar -->
+  <header id="navbar" class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo-wrapper" title="GrobGrob หน้าแรก">
+        <img src="assets/logo.png" alt="GrobGrob โลโก้" class="logo-img" />
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">หน้าแรก</a></li>
+          <li><a href="products.html" class="nav-link">สินค้าทั้งหมด</a></li>
+          <li><a href="index.html#story" class="nav-link">เกี่ยวกับเรา</a></li>
+          <li><a href="index.html#testimonials" class="nav-link">รีวิวลูกค้า</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="cart.html" class="cart-icon-btn" aria-label="ดูตะกร้าสินค้า">
+          <span>🛒</span>
+          <span id="cartBadge" class="cart-badge">0</span>
+        </a>
+
+        <a href="products.html" class="btn-primary">
+          <span>สั่งซื้อสินค้า</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="blob-bg blob-cream hero-blob-bg"></div>
+    <div class="dot-pattern" style="top: 100px; left: 40px; width: 180px; height: 180px;"></div>
+
+    <div class="container hero-grid">
+      <div class="hero-content fade-up-element">
+        <div class="hero-badge-container">
+          <span class="badge badge-cream">✨ กรอบ อร่อย มีประโยชน์</span>
+        </div>
+        <h1 class="hero-title">
+          กรอบอร่อยเพลิน <span>เคี้ยวสนุกทุกคำ</span>
+        </h1>
+        <p class="hero-subtitle">
+          สัมผัสความอร่อยสไตล์ใหม่กับ <strong>GrobGrob (กรอบกรอบ)</strong> สาหร่ายอบด้วยนวัตกรรมลมร้อน ไม่ใช้น้ำมันทอด
+          ไร้ MSG ทานเพลินได้ทั้งวัน ไม่รู้สึกผิด!
+        </p>
+        <div class="hero-buttons">
+          <a href="products.html" class="btn-primary">
+            <span>🛒 เลือกซื้อสินค้าทั้งหมด</span>
+          </a>
+          <button class="btn-sparkle-quiz" onclick="openTasteQuizModal()">
+            <span>🪄 ค้นหารสชาติที่ใช่สำหรับคุณ</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-visual fade-up-element">
+        <div class="floating-tag tag-top-left">
+          <span>🔥</span> <span>ไม่ใช้น้ำมันทอด 100%</span>
+        </div>
+        <div class="floating-tag tag-bottom-right">
+          <span>✨</span> <span>กรอบสนั่น รสเข้มข้น</span>
+        </div>
+        <div class="hero-img-container">
+          <img src="assets/seaweed-sheet.png" alt="GrobGrob สาหร่ายอบกรอบแผ่น" class="hero-img" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Strip Section -->
+  <section id="features" class="features-section">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature-card fade-up-element">
+          <div class="feature-icon-wrapper">🥬</div>
+          <h3 class="feature-title">กรอบทุกคำ แท้ 100%</h3>
+          <p class="feature-desc">คัดสรรใบสาหร่ายสดใหม่เกรด A อบกรอบด้วยอุณหภูมิที่พอดี ให้ความกรอบฟูสม่ำเสมอ</p>
+        </div>
+
+        <div class="feature-card fade-up-element">
+          <div class="feature-icon-wrapper">🔥</div>
+          <h3 class="feature-title">ไม่ใช้น้ำมันทอด</h3>
+          <p class="feature-desc">ใช้นวัตกรรมการอบด้วยลมร้อน ไร้น้ำมัน ไร้ไขมันทรานส์ ดีต่อสุขภาพของทุกคน</p>
+        </div>
+
+        <div class="feature-card fade-up-element">
+          <div class="feature-icon-wrapper">🚫</div>
+          <h3 class="feature-title">ไม่มี MSG & สารกันเสีย</h3>
+          <p class="feature-desc">รสชาติกลมกล่อมจากวัตถุดิบธรรมชาติ ไม่ใส่ผงชูรสและไม่ใส่วัตถุกันเสีย ปลอดภัย</p>
+        </div>
+
+        <div class="feature-card fade-up-element">
+          <div class="feature-icon-wrapper">🌟</div>
+          <h3 class="feature-title">วัตถุดิบพรีเมียม</h3>
+          <p class="feature-desc">นำเข้าสาหร่ายธรรมชาติน้ำลึก หอม กลิ่นทะเลแท้ๆ สดใหม่ส่งตรงถึงมือคุณ</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section id="products" class="products-section">
+    <div class="container">
+      <!-- Interactive Taste Quiz Banner -->
+      <div class="recommendation-quiz-banner fade-up-element">
+        <div class="quiz-banner-text">
+          <h3><span>🪄</span> เลือกรสชาติไม่ถูก? ให้ระบบแนะนำสินค้าตามความชอบช่วยคุณ!</h3>
+          <p>ตอบคำถามความชอบเพียง 3 ข้อ เพื่อค้นหารสชาติและประเภทสาหร่ายที่ใช่ที่สุดสำหรับคุณ พร้อมคะแนนความเข้ากัน 90%+
+          </p>
+        </div>
+        <button class="btn-sparkle-quiz" onclick="openTasteQuizModal()">
+          <span>✨ ทำแบบสอบถาม (30 วินาที)</span>
+        </button>
+      </div>
+
+      <!-- Personalized Recommendations Output Container -->
+      <div id="recommendationsSection" class="recommendations-container"></div>
+
+      <div class="section-header fade-up-element">
+        <span class="section-subtitle">OUR PRODUCTS & FLAVORS</span>
+        <h2 class="section-title">เลือกซื้อสินค้า GrobGrob</h2>
+        <p class="section-desc">ความอร่อย 3 สไตล์ พร้อม 4 รสชาติเด็ด ให้คุณเลือกลิ้มลองตามความชอบ</p>
+      </div>
+
+      <div class="products-grid">
+        <!-- Product 1: Sheet -->
+        <div id="product-card-sheet" class="product-card fade-up-element">
+          <span class="badge badge-green product-badge-tag">🌿 สูตรกลมกล่อม</span>
+          <div class="product-img-wrapper">
+            <img src="assets/seaweed-sheet.png" alt="สาหร่ายอบกรอบแผ่น" class="product-img" />
+            <button class="product-quick-view" onclick="openProductModal('sheet')">🔍 ดูรายละเอียด</button>
+          </div>
+          <div class="product-content">
+            <div class="product-rating">
+              ★ 4.9 <span class="rating-count">(142 รีวิว)</span>
+            </div>
+            <h3 class="product-title">สาหร่ายอบกรอบแผ่น <span class="flavor-name-highlight">(รสออริจินัล)</span></h3>
+
+            <div class="flavor-selection-bar">
+              <span class="flavor-label">เลือกรสชาติ:</span>
+              <div class="flavor-pills">
+                <button class="flavor-pill active" data-flavor="original" onclick="selectFlavor('sheet', 'original')"
+                  title="รสออริจินัล">🌿 ออริจินัล</button>
+                <button class="flavor-pill" data-flavor="spicy" onclick="selectFlavor('sheet', 'spicy')"
+                  title="รสเผ็ดสไปซี่">🌶️ สไปซี่</button>
+                <button class="flavor-pill" data-flavor="bbq" onclick="selectFlavor('sheet', 'bbq')"
+                  title="รสบาร์บีคิว">🍖 บาร์บีคิว</button>
+                <button class="flavor-pill" data-flavor="cheese" onclick="selectFlavor('sheet', 'cheese')"
+                  title="รสฮอกไกโดชีส">🧀 ชีส</button>
+              </div>
+            </div>
+
+            <p class="product-desc">หอมกลิ่นสาหร่ายทะเลแท้ๆ ปรุงรสกลมกล่อมด้วยเกลือทะเลธรรมชาติและน้ำมันงาบริสุทธิ์</p>
+
+            <div class="product-footer">
+              <div class="product-price">
+                <span class="price-amount">39 ฿</span>
+                <span class="price-unit">/ ห่อ</span>
+              </div>
+              <button class="add-cart-btn" onclick="addToCart('sheet')">
+                <span>🛒 หยิบใส่ตะกร้า</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 2: Roll -->
+        <div id="product-card-roll" class="product-card fade-up-element">
+          <span class="badge badge-cream product-badge-tag">🌿 คลาสสิก</span>
+          <div class="product-img-wrapper">
+            <img src="assets/seaweed-roll.png" alt="สาหร่ายม้วนอบกรอบ" class="product-img" />
+            <button class="product-quick-view" onclick="openProductModal('roll')">🔍 ดูรายละเอียด</button>
+          </div>
+          <div class="product-content">
+            <div class="product-rating">
+              ★ 4.8 <span class="rating-count">(98 รีวิว)</span>
+            </div>
+            <h3 class="product-title">สาหร่ายม้วนอบกรอบ <span class="flavor-name-highlight">(รสออริจินัล)</span></h3>
+
+            <div class="flavor-selection-bar">
+              <span class="flavor-label">เลือกรสชาติ:</span>
+              <div class="flavor-pills">
+                <button class="flavor-pill active" data-flavor="original" onclick="selectFlavor('roll', 'original')"
+                  title="รสออริจินัล">🌿 ออริจินัล</button>
+                <button class="flavor-pill" data-flavor="spicy" onclick="selectFlavor('roll', 'spicy')"
+                  title="รสเผ็ดเกาหลี">🌶️ สไปซี่</button>
+                <button class="flavor-pill" data-flavor="wasabi" onclick="selectFlavor('roll', 'wasabi')"
+                  title="รสวาสาบิ">🍣 วาสาบิ</button>
+                <button class="flavor-pill" data-flavor="bbq" onclick="selectFlavor('roll', 'bbq')"
+                  title="รสบาร์บีคิว">🍖 บาร์บีคิว</button>
+              </div>
+            </div>
+
+            <p class="product-desc">ม้วนกรอบหอม รสชาติคลาสสิกตามฉบับ GrobGrob เคี้ยวมันส์ทุกแท่ง</p>
+
+            <div class="product-footer">
+              <div class="product-price">
+                <span class="price-amount">35 ฿</span>
+                <span class="price-unit">/ ห่อ</span>
+              </div>
+              <button class="add-cart-btn" onclick="addToCart('roll')">
+                <span>🛒 หยิบใส่ตะกร้า</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 3: Flakes -->
+        <div id="product-card-flakes" class="product-card fade-up-element">
+          <span class="badge badge-green product-badge-tag">🌿 โรยเพลิน</span>
+          <div class="product-img-wrapper">
+            <img src="assets/seaweed-flakes.png" alt="สาหร่ายอบกรอบผง" class="product-img" />
+            <button class="product-quick-view" onclick="openProductModal('flakes')">🔍 ดูรายละเอียด</button>
+          </div>
+          <div class="product-content">
+            <div class="product-rating">
+              ★ 5.0 <span class="rating-count">(210 รีวิว)</span>
+            </div>
+            <h3 class="product-title">สาหร่ายอบกรอบผง โรยข้าว <span
+                class="flavor-name-highlight">(รสออริจินัลงาหอม)</span></h3>
+
+            <div class="flavor-selection-bar">
+              <span class="flavor-label">เลือกรสชาติ:</span>
+              <div class="flavor-pills">
+                <button class="flavor-pill active" data-flavor="original" onclick="selectFlavor('flakes', 'original')"
+                  title="รสออริจินัล">🌿 ออริจินัล</button>
+                <button class="flavor-pill" data-flavor="spicy" onclick="selectFlavor('flakes', 'spicy')"
+                  title="รสสไปซี่กิมจิ">🌶️ กิมจิ</button>
+                <button class="flavor-pill" data-flavor="saltedegg" onclick="selectFlavor('flakes', 'saltedegg')"
+                  title="รสไข่เค็ม">🥚 ไข่เค็ม</button>
+                <button class="flavor-pill" data-flavor="garlic" onclick="selectFlavor('flakes', 'garlic')"
+                  title="รสเนยกระเทียม">🧄 กระเทียม</button>
+              </div>
+            </div>
+
+            <p class="product-desc">หอมกลิ่นงาขาวคั่วใหม่และสาหร่ายอบกรอบ ปรุงรสกลมกล่อมสไตล์ฟุริคาเกะแท้</p>
+
+            <div class="product-footer">
+              <div class="product-price">
+                <span class="price-amount">45 ฿</span>
+                <span class="price-unit">/ กระปุก</span>
+              </div>
+              <button class="add-cart-btn" onclick="addToCart('flakes')">
+                <span>🛒 หยิบใส่ตะกร้า</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 48px;" class="fade-up-element">
+        <a href="products.html" class="btn-primary" style="font-size: 1.1rem; padding: 14px 36px;">
+          <span>🍃 ดูสินค้าทั้งหมด 12 รสชาติ ➡️</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story Section -->
+  <section id="story" class="story-section">
+    <div class="dot-pattern" style="bottom: 40px; right: 40px; width: 200px; height: 200px;"></div>
+
+    <div class="container story-grid">
+      <div class="story-visual fade-up-element">
+        <img src="assets/seaweed-sheet.png" alt="เรื่องราว GrobGrob" class="story-img-main" />
+        <div class="story-badge-card">
+          <div class="story-badge-icon">💚</div>
+          <div class="story-badge-text">
+            <h4>คุณภาพระดับพรีเมียม</h4>
+            <p>ผลิตสดใหม่ ใส่ใจทุกขั้นตอน</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-content fade-up-element">
+        <span class="section-subtitle">ABOUT US</span>
+        <h2>เรื่องราวของ "GrobGrob" <br /><span class="text-leaf">สาหร่ายอบกรอบที่ทำด้วยใจ</span></h2>
+        <p>
+          ย้อนกลับไปตอนที่เราอยากหาขนมทานเล่นที่ทั้ง <strong>อร่อย และดีต่อสุขภาพ</strong> ให้กับคนในครอบครัว
+          แต่ขนมส่วนใหญ่มักผ่านการทอดและมีน้ำมันสูง
+        </p>
+        <p>
+          เราจึงคิดค้นสูตร <strong>GrobGrob (กรอบกรอบ)</strong> ที่ใช้นวัตกรรมการอบด้วยลมร้อน
+          คัดสรรใบสาหร่ายคุณภาพพรีเมียมจากแหล่งธรรมชาติน้ำลึก จนได้สาหร่ายที่กรอบสนั่น หอม อร่อย
+          โดยไม่ต้องพึ่งน้ำมันทอดหรือผงชูรส!
+        </p>
+
+        <div class="story-steps">
+          <div class="story-step-item">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <h5>คัดสรรสาหร่ายธรรมชาติ</h5>
+              <p>เลือกเฉพาะใบสาหร่ายเกรดพรีเมียมที่มีคุณค่าทางโภชนาการสูง</p>
+            </div>
+          </div>
+
+          <div class="story-step-item">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              <h5>อบด้วยนวัตกรรมลมร้อน</h5>
+              <p>อบด้วยอุณหภูมิควบคุมพิเศษ ให้สัมผัสกรอบฟูโดยไร้น้ำมันทอด 100%</p>
+            </div>
+          </div>
+
+          <div class="story-step-item">
+            <div class="step-num">3</div>
+            <div class="step-text">
+              <h5>บรรจุสดใหม่มาตรฐานสูง</h5>
+              <p>ซีลปิดสนิทคงความกรอบและกลิ่นหอมสดใหม่ส่งตรงถึงมือคุณ</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="testimonials-section">
+    <div class="container">
+      <div class="section-header fade-up-element">
+        <span class="section-subtitle">TESTIMONIALS</span>
+        <h2 class="section-title">ความประทับใจจากลูกค้า</h2>
+        <p class="section-desc">เสียงยืนยันความอร่อยกรอบสนั่นจากผู้ทานจริงทั่วประเทศ</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card fade-up-element">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            "กรอบ อร่อย ทานเพลินมากค่ะ ลูกๆ ชอบมาก พอรู้ว่าไม่ใช้น้ำมันทอดแล้วสบายใจในการให้เด็กๆ
+            ทานเป็นสแน็คหลังเลิกเรียนเลยค่ะ!"
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">คุณเมย์</div>
+            <div class="author-info">
+              <h5>คุณเมย์</h5>
+              <p>✓ ยืนยันการสั่งซื้อ</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-up-element">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            "สาหร่ายม้วนคือดีงามมากๆ สอดไส้กรอบแน่นๆ พกไปทานที่ office เป็นขนมยามบ่าย ทานง่ายไม่เลอะมือ
+            อร่อยหมดห่อไวมาก!"
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">คุณโบ๊ท</div>
+            <div class="author-info">
+              <h5>คุณโบ๊ท</h5>
+              <p>✓ ยืนยันการสั่งซื้อ</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-up-element">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            "ผงโรยข้าวอร่อยมากกก ข้าวสวยร้อนๆ โรยผงสาหร่าย GrobGrob เพิ่มรสชาติ หอมงาและสาหร่ายสุดๆ
+            กินกับอะไรก็อร่อยขึ้น 10 เท่า!"
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">คุณเปิ้ล</div>
+            <div class="author-info">
+              <h5>คุณเปิ้ล</h5>
+              <p>✓ ยืนยันการสั่งซื้อ</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner Section -->
+  <section class="cta-banner-section">
+    <div class="container cta-banner-content fade-up-element">
+      <h2 class="cta-banner-title">พร้อมสัมผัสความกรอบ อร่อย สุขภาพดีแล้วหรือยัง?</h2>
+      <p class="cta-banner-desc">
+        🎉 โปรโมชั่นพิเศษ! สั่งซื้อสินค้า GrobGrob วันนี้ครบ 300 บาท บริการจัดส่งฟรีทั่วประเทศทันที
+      </p>
+      <a href="#products" class="cta-btn-light">
+        <span>🛒 สั่งซื้อสินค้า GrobGrob ตอนนี้</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact" class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/logo.png" alt="GrobGrob Logo" style="height: 50px;" />
+          <p>GrobGrob (กรอบกรอบ) สาหร่ายอบกรอบแท้ 100% สดใหม่ กรอบ อร่อย ได้ประโยชน์เต็มคำเพื่อทุกคนในครอบครัว</p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">เมนูหลัก</h4>
+          <ul class="footer-links">
+            <li><a href="#features">จุดเด่นสินค้า</a></li>
+            <li><a href="#products">สินค้าของเรา</a></li>
+            <li><a href="#story">เกี่ยวกับเรา</a></li>
+            <li><a href="#testimonials">รีวิวลูกค้า</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">สินค้า</h4>
+          <ul class="footer-links">
+            <li><a href="#products">สาหร่ายอบกรอบแผ่น</a></li>
+            <li><a href="#products">สาหร่ายอบกรอบม้วน</a></li>
+            <li><a href="#products">สาหร่ายผงโรยข้าว</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-contact">
+          <h4 class="footer-heading">ติดต่อเรา</h4>
+          <p><span>📍</span> กรุงเทพมหานคร, ประเทศไทย</p>
+          <p><span>📞</span> 081-234-5678</p>
+          <p><span>💬</span> LINE: @GrobGrob</p>
+
+          <div class="social-links">
+            <a href="#" class="social-btn" aria-label="Facebook">fb</a>
+            <a href="#" class="social-btn" aria-label="LINE">line</a>
+            <a href="#" class="social-btn" aria-label="Instagram">ig</a>
+            <a href="#" class="social-btn" aria-label="TikTok">tt</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 GrobGrob (กรอบกรอบ สาหร่ายอบกรอบ). All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-out Cart Drawer -->
+  <div id="cartDrawerOverlay" class="cart-drawer-overlay"></div>
+  <aside id="cartDrawer" class="cart-drawer">
+    <div class="cart-header">
+      <h3>🛒 ตะกร้าสินค้าของคุณ</h3>
+      <span id="closeCartBtn" class="close-cart-btn">&times;</span>
+    </div>
+
+    <div id="cartItemsList" class="cart-items-list">
+      <!-- Dynamic Cart Items -->
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span>ยอดรวมทั้งหมด:</span>
+        <span id="cartTotalPrice">0 บาท</span>
+      </div>
+      <button id="checkoutBtn" class="checkout-btn">ดำเนินการสั่งซื้อ (Checkout)</button>
+    </div>
+  </aside>
+
+  <!-- Quick View Product Modal -->
+  <div id="quickViewModal" class="modal-overlay">
+    <div class="modal-box">
+      <span id="closeModalBtn" class="close-modal-btn">&times;</span>
+      <div id="modalBoxContent"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

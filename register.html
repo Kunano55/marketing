@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>สมัครสมาชิก - GrobGrob สาหร่ายอบกรอบแท้ 100%</title>
+  <meta name="description" content="ลงทะเบียนสมัครสมาชิก GrobGrob รับสิทธิพิเศษ โค้ดส่วนลด และสิทธิ์ในการสั่งซื้อสาหร่ายอบกรอบพรีเมียม" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+</head>
+
+<body class="auth-page-bg">
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Header / Navbar -->
+  <header id="navbar" class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo-wrapper" title="GrobGrob หน้าแรก">
+        <img src="assets/logo.png" alt="GrobGrob โลโก้" class="logo-img" />
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">หน้าแรก</a></li>
+          <li><a href="products.html" class="nav-link">สินค้าทั้งหมด</a></li>
+          <li><a href="cart.html" class="nav-link">ตะกร้าสินค้า 🛒</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="login.html" class="btn-secondary">
+          <span>🔑 เข้าสู่ระบบ</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Register Form Section -->
+  <section class="auth-section">
+    <div class="container">
+      <div class="auth-card-container">
+        
+        <div class="auth-header">
+          <span class="badge badge-cream mb-12">🍃 MEMBER REGISTRATION</span>
+          <h2>สมัครสมาชิก GrobGrob</h2>
+          <p>ลงทะเบียนเพียงครั้งเดียว สั่งซื้อสะดวก พร้อมสะสมแต้มและรับโปรโมชั่นพิเศษก่อนใคร</p>
+        </div>
+
+        <form id="registerForm" class="auth-form-grid">
+          
+          <!-- Section 1: Account Info -->
+          <div class="form-fieldset">
+            <h3 class="fieldset-title">1. ข้อมูลบัญชีผู้ใช้ (Account Information)</h3>
+            
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="username">ชื่อผู้ใช้ (Username) <span class="required">*</span></label>
+                <input type="text" id="username" name="username" required placeholder="เช่น somchai_grob" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label for="email">อีเมล (Email Address) <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required placeholder="name@example.com" class="form-input" />
+              </div>
+            </div>
+
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="password">รหัสผ่าน (Password) <span class="required">*</span></label>
+                <input type="password" id="password" name="password" required placeholder="อย่างน้อย 6 ตัวอักษร" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label for="confirmPassword">ยืนยันรหัสผ่าน (Confirm Password) <span class="required">*</span></label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="พิมพ์รหัสผ่านซ้ำอีกครั้ง" class="form-input" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Personal Info -->
+          <div class="form-fieldset">
+            <h3 class="fieldset-title">2. ข้อมูลส่วนตัวและติดต่อ (Personal Info)</h3>
+            
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="fullName">ชื่อ-นามสกุล (Full Name) <span class="required">*</span></label>
+                <input type="text" id="fullName" name="fullName" required placeholder="นาย/นาง/นางสาว..." class="form-input" />
+              </div>
+              <div class="form-group">
+                <label for="phone">เบอร์โทรศัพท์ (Mobile Phone) <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" required placeholder="08X-XXX-XXXX" class="form-input" />
+              </div>
+            </div>
+
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="birthDate">วัน/เดือน/ปีเกิด (Date of Birth)</label>
+                <input type="date" id="birthDate" name="birthDate" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label for="gender">เพศ (Gender)</label>
+                <select id="gender" name="gender" class="form-select">
+                  <option value="ไม่ระบุ">-- เลือกเพศ --</option>
+                  <option value="ชาย">ชาย (Male)</option>
+                  <option value="หญิง">หญิง (Female)</option>
+                  <option value="LGBTQ+">LGBTQ+ / อื่นๆ</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Delivery Address -->
+          <div class="form-fieldset">
+            <h3 class="fieldset-title">3. ข้อมูลที่อยู่จัดส่งสินค้า (Shipping Address)</h3>
+            
+            <div class="form-group">
+              <label for="address">บ้านเลขที่ / อาคาร / ถนน / ซอย</label>
+              <input type="text" id="address" name="address" placeholder="เช่น 99/12 หมู่บ้านสุขสันต์ ถนนพัฒนาการ ซอย 20" class="form-input" />
+            </div>
+
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="subdistrict">แขวง/ตำบล</label>
+                <input type="text" id="subdistrict" name="subdistrict" placeholder="แขวงสวนหลวง" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label for="district">เขต/อำเภอ</label>
+                <input type="text" id="district" name="district" placeholder="เขตสวนหลวง" class="form-input" />
+              </div>
+            </div>
+
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="province">จังหวัด</label>
+                <input type="text" id="province" name="province" placeholder="กรุงเทพมหานคร" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label for="zipcode">รหัสไปรษณีย์</label>
+                <input type="text" id="zipcode" name="zipcode" placeholder="10250" class="form-input" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 4: Terms & Privacy Consent -->
+          <div class="form-fieldset">
+            <h3 class="fieldset-title">4. ข้อตกลงและยินยอมข้อมูลส่วนบุคคล (Terms & PDPA Consent)</h3>
+            
+            <div class="consent-box">
+              <label class="consent-item">
+                <input type="checkbox" id="termsConsent" name="termsConsent" required />
+                <span class="consent-label-text">
+                  ฉันได้อ่านและยอมรับ <a href="javascript:void(0)" onclick="openTermsModal()" class="consent-link">ข้อตกลงเงื่อนไขการให้บริการ</a> และ <a href="javascript:void(0)" onclick="openPrivacyModal()" class="consent-link">นโยบายความเป็นส่วนตัว (PDPA Privacy Policy)</a> ของ GrobGrob <span class="required">*</span>
+                </span>
+              </label>
+
+              <label class="consent-item">
+                <input type="checkbox" id="marketingConsent" name="marketingConsent" />
+                <span class="consent-label-text">
+                  ยินยอมรับข่าวสาร สิทธิพิเศษ โค้ดส่วนลด และกิจกรรมทางการตลาดจาก GrobGrob ผ่านทางอีเมลและ SMS (ยกเลิกได้ทุกเมื่อ)
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Submit Controls -->
+          <div class="auth-submit-box">
+            <button type="submit" id="submitRegisterBtn" class="btn-primary btn-auth-submit">
+              <span>🎉 ยินยอมข้อตกลงและสมัครสมาชิก</span>
+            </button>
+            <p class="auth-switch-text">
+              มีบัญชีสมาชิกอยู่แล้ว? <a href="login.html">เข้าสู่ระบบที่นี่</a>
+            </p>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Terms & Privacy Modals -->
+  <div id="termsModal" class="modal-overlay">
+    <div class="modal-box" style="max-width: 580px; padding: 32px;">
+      <button class="modal-close" onclick="document.getElementById('termsModal').classList.remove('active')">&times;</button>
+      <h3 style="font-size: 1.4rem; color: var(--color-olive-dark); margin-bottom: 12px;">📜 ข้อตกลงและเงื่อนไขการให้บริการ GrobGrob</h3>
+      <div style="font-size: 0.9rem; color: var(--color-charcoal); line-height: 1.6; max-height: 320px; overflow-y: auto; padding-right: 8px;">
+        <p>1. <strong>การสมัครสมาชิก:</strong> ผู้สมัครต้องกรอกข้อมูลที่เป็นความจริงเพื่อประโยชน์ในการรับสิทธิ์ส่วนลดและจัดส่งสินค้า</p>
+        <p style="margin-top: 10px;">2. <strong>การสั่งซื้อและชำระเงิน:</strong> คำสั่งซื้อจะสมบูรณ์เมื่อผู้ใช้ได้รับการยืนยันและชำระเงินตามเงื่อนไขที่กำหนด</p>
+        <p style="margin-top: 10px;">3. <strong>การจัดส่งสินค้า:</strong> บริการจัดส่งทั่วประเทศ โดยมีสิทธิ์ส่งฟรีเมื่อยอดซื้อครบ 150 บาทขึ้นไป</p>
+        <p style="margin-top: 10px;">4. <strong>สิทธิ์ในการยกเลิก:</strong> GrobGrob ขอสงวนสิทธิ์ในการยกเลิกคำสั่งซื้อในกรณีพบบุคคลใช้ข้อมูลเท็จหรือทุจริต</p>
+      </div>
+      <div style="margin-top: 24px; text-align: right;">
+        <button class="btn-primary" onclick="document.getElementById('termsConsent').checked = true; document.getElementById('termsModal').classList.remove('active')">
+          <span>✅ อ่านแล้วและยอมรับข้อตกลง</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="privacyModal" class="modal-overlay">
+    <div class="modal-box" style="max-width: 580px; padding: 32px;">
+      <button class="modal-close" onclick="document.getElementById('privacyModal').classList.remove('active')">&times;</button>
+      <h3 style="font-size: 1.4rem; color: var(--color-olive-dark); margin-bottom: 12px;">🛡️ นโยบายความเป็นส่วนตัว (PDPA Policy)</h3>
+      <div style="font-size: 0.9rem; color: var(--color-charcoal); line-height: 1.6; max-height: 320px; overflow-y: auto; padding-right: 8px;">
+        <p>1. <strong>การเก็บรวบรวมข้อมูล:</strong> เราเก็บรักษา ชื่อ, อีเมล, เบอร์โทรศัพท์ และที่อยู่จัดส่ง เพื่อใช้ในการประมวลผลคำสั่งซื้อและจัดส่งสินค้าเท่านั้น</p>
+        <p style="margin-top: 10px;">2. <strong>การรักษาความปลอดภัย:</strong> ข้อมูลของคุณจะถูกจัดเก็บอย่างปลอดภัย ไม่ถูกนำไปขายหรือเปิดเผยแก่บุคคลภายนอกโดยไม่ได้รับอนุญาต</p>
+        <p style="margin-top: 10px;">3. <strong>สิทธิ์ของเจ้าของข้อมูล:</strong> คุณมีสิทธิ์เข้าถึง แก้ไข หรือร้องขอให้ลบข้อมูลส่วนบุคคลของคุณได้ทุกเมื่อ</p>
+      </div>
+      <div style="margin-top: 24px; text-align: right;">
+        <button class="btn-primary" onclick="document.getElementById('termsConsent').checked = true; document.getElementById('privacyModal').classList.remove('active')">
+          <span>✅ เข้าใจนโยบายความเป็นส่วนตัว</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container text-center">
+      <p>&copy; 2026 GrobGrob Co., Ltd. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    function openTermsModal() {
+      document.getElementById('termsModal')?.classList.add('active');
+    }
+    function openPrivacyModal() {
+      document.getElementById('privacyModal')?.classList.add('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const registerForm = document.getElementById('registerForm');
+      if (!registerForm) return;
+
+      registerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const username = (document.getElementById('username')?.value || '').trim();
+        const email = (document.getElementById('email')?.value || '').trim();
+        const password = document.getElementById('password')?.value || '';
+        const confirmPassword = document.getElementById('confirmPassword')?.value || '';
+        const fullName = (document.getElementById('fullName')?.value || '').trim();
+        const phone = (document.getElementById('phone')?.value || '').trim();
+        const birthDate = document.getElementById('birthDate')?.value || '';
+        const gender = document.getElementById('gender')?.value || 'ไม่ระบุ';
+        const address = (document.getElementById('address')?.value || '').trim();
+        const subdistrict = (document.getElementById('subdistrict')?.value || '').trim();
+        const district = (document.getElementById('district')?.value || '').trim();
+        const province = (document.getElementById('province')?.value || '').trim();
+        const zipcode = (document.getElementById('zipcode')?.value || '').trim();
+
+        const termsConsent = document.getElementById('termsConsent')?.checked;
+        const marketingConsent = document.getElementById('marketingConsent')?.checked;
+
+        if (!username || !email || !password || !fullName || !phone) {
+          alert('❌ กรุณากรอกข้อมูลสำคัญให้ครบถ้วน (ชื่อผู้ใช้, อีเมล, รหัสผ่าน, ชื่อ-นามสกุล, เบอร์โทรศัพท์)');
+          return;
+        }
+
+        if (!termsConsent) {
+          alert('❌ กรุณากดติ๊กยอมรับข้อตกลงและนโยบายความเป็นส่วนตัวก่อนสมัครสมาชิก');
+          return;
+        }
+
+        if (password !== confirmPassword) {
+          alert('❌ รหัสผ่านและการยืนยันรหัสผ่านไม่ตรงกัน!');
+          return;
+        }
+
+        if (password.length < 4) {
+          alert('❌ รหัสผ่านต้องมีความยาวอย่างน้อย 4 ตัวอักษรขึ้นไป');
+          return;
+        }
+
+        const usersList = window.GrobAuth ? window.GrobAuth.getUsers() : [];
+        
+        // Check for duplicates in client state
+        const existing = usersList.find(u => 
+          (u.username && u.username.toLowerCase() === username.toLowerCase()) || 
+          (u.email && u.email.toLowerCase() === email.toLowerCase())
+        );
+        if (existing) {
+          alert('❌ ชื่อผู้ใช้หรืออีเมลนี้มีอยู่ในระบบแล้ว กรุณาใช้ชื่ออื่น หรือเข้าสู่ระบบ');
+          return;
+        }
+
+        const newUser = {
+          userId: `USER-2026-${String(usersList.length + 1).padStart(3, '0')}`,
+          username,
+          email,
+          password,
+          fullName,
+          phone,
+          birthDate,
+          gender,
+          address,
+          subdistrict,
+          district,
+          province,
+          zipcode,
+          termsAccepted: true,
+          marketingConsent: !!marketingConsent,
+          registeredAt: new Date().toISOString()
+        };
+
+        // 1. Try server POST endpoint to save to users.json on disk
+        try {
+          await fetch('/api/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newUser)
+          });
+        } catch (err) {
+          console.log('Server save fallback:', err);
+        }
+
+        // 2. Save user locally to localStorage & log in immediately
+        usersList.push(newUser);
+        if (window.GrobAuth) {
+          window.GrobAuth.saveUsers(usersList);
+          window.GrobAuth.setCurrentUser(newUser);
+        } else {
+          localStorage.setItem('grobgrob_users', JSON.stringify(usersList));
+          localStorage.setItem('grobgrob_current_user', JSON.stringify(newUser));
+        }
+
+        alert(`🎉 สมัครสมาชิกสำเร็จเรียบร้อยแล้ว! ยินดีต้อนรับคุณ ${fullName}`);
+        window.location.href = 'products.html';
+      });
+    });
+  </script>
+</body>
+
+</html>

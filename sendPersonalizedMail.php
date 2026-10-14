@@ -108,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->Subject = "แนะนำพิเศษสำหรับคุณ: {$selectedCatName} {$selectedFlavor['title']} พร้อมส่วนลด {$selectedFlavor['discount']}";
 
         // AltBody สำหรับโปรแกรมอ่านเมลและระบบกรองสแปม
-        $mail->AltBody = "สินค้าคัดสรรเฉพาะคุณ: {$customerName}\n{$selectedCatName} - {$selectedFlavor['title']}\n{$selectedFlavor['desc']}\nคูปองส่วนลด: {$selectedFlavor['coupon']} (ลด {$selectedFlavor['discount']})\nเข้าชมสินค้า: https://grobgrob.com/products";
+        $mail->AltBody = "สินค้าคัดสรรเฉพาะคุณ: {$customerName}\n{$selectedCatName} - {$selectedFlavor['title']}\n{$selectedFlavor['desc']}\nคูปองส่วนลด: {$selectedFlavor['coupon']} (ลด {$selectedFlavor['discount']})\nเข้าชมสินค้า: https://kunano55.github.io/marketing/products.html";
 
         $mail->Body = "
         <!DOCTYPE html>
@@ -158,7 +158,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <span style='color: #555; font-size: 13px;'>รับส่วนลดทันที <strong>{$selectedFlavor['discount']}</strong> เมื่อสั่งซื้อสินค้ารสชาตินี้</span>
                   </div>
 
-                  <a href='https://grobgrob.com/products' style='background: #E86B43; color: #FFF; text-decoration: none; padding: 14px 36px; font-size: 16px; font-weight: bold; border-radius: 999px; display: inline-block; box-shadow: 0 4px 14px rgba(232,107,67,0.3);'>
+                  <a href='https://kunano55.github.io/marketing/products.html' style='background: #E86B43; color: #FFF; text-decoration: none; padding: 14px 36px; font-size: 16px; font-weight: bold; border-radius: 999px; display: inline-block; box-shadow: 0 4px 14px rgba(232,107,67,0.3);'>
                     🛒 สั่งซื้อรสชาตินี้ทันที
                   </a>
                 </td>

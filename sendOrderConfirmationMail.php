@@ -236,12 +236,19 @@ function sendOrderConfirmationEmail($orderData) {
       </div>
     </div>
 
+    <!-- Action Button -->
+    <div style='text-align: center; padding: 0 24px 28px 24px;'>
+      <a href='https://kunano55.github.io/marketing/products.html' target='_blank' style='display: inline-block; background-color: #2D5A27; color: #FFFFFF; font-weight: 700; text-decoration: none; padding: 14px 32px; border-radius: 999px; font-size: 15px; box-shadow: 0 4px 15px rgba(45,90,39,0.2);'>
+        🛒 ช้อปสินค้า GrobGrob เพิ่มเติม
+      </a>
+    </div>
+
     <!-- Footer -->
     <div style='background-color: #273724; padding: 24px; text-align: center; color: #B9C7B6; font-size: 13px;'>
       <p style='margin: 0 0 8px 0; color: #FFFFFF; font-weight: 700;'>🌿 GrobGrob Co., Ltd. - สาหร่ายอบกรอบแท้ 100%</p>
       <p style='margin: 0 0 12px 0; line-height: 1.5;'>
         หากมีข้อสงสัยหรือต้องการเปลี่ยนแปลงข้อมูลจัดส่ง สามารถติดต่อทีมงานได้ที่<br>
-        อีเมล: support@grobgrob.com หรือโทร: 02-123-4567 (จันทร์-ศุกร์ 09:00 - 18:00 น.)
+        LINE: @GrobGrob หรือโทร: 081-234-5678
       </p>
       <p style='margin: 0; font-size: 11px; color: #7B8C78;'>
         &copy; 2026 GrobGrob Seaweed E-commerce. All Rights Reserved.
@@ -255,7 +262,7 @@ function sendOrderConfirmationEmail($orderData) {
 
         $mail->isHTML(true);
         $mail->Body    = $body;
-        $mail->AltBody = "ขอบคุณสำหรับคำสั่งซื้อ #{$orderNo} จาก GrobGrob!\nสินค้าของคุณจะถูกจัดส่งถึงคุณในอีก {$minDays}-{$maxDays} วันทำการ (ภายใน {$estMinDate} - {$estMaxDate})\nยอดชำระสุทธิ: {$netAmount} บาท\nดูรายละเอียดเพิ่มเติมได้ที่เว็บไซต์ GrobGrob";
+        $mail->AltBody = "ขอบคุณสำหรับคำสั่งซื้อ #{$orderNo} จาก GrobGrob!\nสินค้าของคุณจะถูกจัดส่งถึงคุณในอีก {$minDays}-{$maxDays} วันทำการ (ภายใน {$estMinDate} - {$estMaxDate})\nยอดชำระสุทธิ: {$netAmount} บาท\nดูรายละเอียดสินค้าเพิ่มเติม: https://kunano55.github.io/marketing/products.html";
 
         // ลองส่งผ่าน Resend HTTPS API (พอร์ต 443 สำหรับ Cloud / Render)
         require_once __DIR__ . '/resendHelper.php';

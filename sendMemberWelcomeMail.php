@@ -136,10 +136,10 @@ function sendMemberWelcomeEmail($toEmail, $fullName, $userId, $preferredCategory
         $mail->isHTML(true);
         if ($hasPersonalized) {
             $mail->Subject = "ยินดีต้อนรับคุณ {$fullName} สู่ GrobGrob! รับส่วนลด 15% สำหรับ {$selectedCat['name']} {$selectedFlavor['title']}";
-            $mail->AltBody = "ยินดีต้อนรับคุณ {$fullName} เข้าสู่ครอบครัว GrobGrob!\nสินค้าแนะนำสำหรับคุณ: {$selectedCat['name']} {$selectedFlavor['title']}\nโค้ดส่วนลดต้อนรับสมาชิก: {$selectedFlavor['coupon']} (ลด 15%)\nโค้ดลดทั่วไป: WELCOME10\nเข้าสู่ระบบ: https://grobgrob.com/products";
+            $mail->AltBody = "ยินดีต้อนรับคุณ {$fullName} เข้าสู่ครอบครัว GrobGrob!\nสินค้าแนะนำสำหรับคุณ: {$selectedCat['name']} {$selectedFlavor['title']}\nโค้ดส่วนลดต้อนรับสมาชิก: {$selectedFlavor['coupon']} (ลด 15%)\nโค้ดลดทั่วไป: WELCOME10\nเข้าสู่ระบบ: https://kunano55.github.io/marketing/products.html";
         } else {
             $mail->Subject = "ยินดีต้อนรับคุณ {$fullName} เข้าสู่ครอบครัว GrobGrob Family!";
-            $mail->AltBody = "ยินดีต้อนรับคุณ {$fullName} เข้าสู่ครอบครัว GrobGrob!\nโค้ดส่วนลดต้อนรับสมาชิก: WELCOME10 (ลด 10% ทุกออเดอร์)\nเข้าสู่ระบบ: https://grobgrob.com/products";
+            $mail->AltBody = "ยินดีต้อนรับคุณ {$fullName} เข้าสู่ครอบครัว GrobGrob!\nโค้ดส่วนลดต้อนรับสมาชิก: WELCOME10 (ลด 10% ทุกออเดอร์)\nเข้าสู่ระบบ: https://kunano55.github.io/marketing/products.html";
         }
 
         $personalizedBlock = '';
@@ -276,7 +276,7 @@ function sendMemberWelcomeEmail($toEmail, $fullName, $userId, $preferredCategory
       <!-- 1. Header Banner Image (member_welcome.jpg) -->
       <tr>
         <td align='center' style='background-color: #FFFFFF;'>
-          <a href='https://grobgrob.com/products' target='_blank' style='text-decoration: none; display: block;'>
+          <a href='https://kunano55.github.io/marketing/products.html' target='_blank' style='text-decoration: none; display: block;'>
             <img src='{$bannerUrl}' alt='ยินดีต้อนรับสมาชิกใหม่! GrobGrob Family' width='600' style='width: 100%; max-width: 600px; height: auto; display: block; border: 0; outline: none;' />
           </a>
         </td>
@@ -370,7 +370,7 @@ function sendMemberWelcomeEmail($toEmail, $fullName, $userId, $preferredCategory
           <table align='center'>
             <tr>
               <td align='center'>
-                <a href='https://grobgrob.com/products' target='_blank' class='cta-btn'>
+                <a href='https://kunano55.github.io/marketing/products.html' target='_blank' class='cta-btn'>
                   🛒 ไปเลือกซื้อสินค้า GrobGrob เลย
                 </a>
               </td>

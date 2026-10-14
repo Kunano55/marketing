@@ -72,7 +72,7 @@ $bodyContent = '
           </table>
 
           <!-- ปุ่ม CTA เลือกซื้อสินค้า -->
-          <a href="https://grobgrob.com/products" target="_blank" style="background-color: #2E3A1F; color: #FFF8EC; text-decoration: none; padding: 14px 36px; font-size: 16px; font-weight: bold; border-radius: 999px; display: inline-block; box-shadow: 0 4px 15px rgba(46, 58, 31, 0.2);">
+          <a href="https://kunano55.github.io/marketing/products.html" target="_blank" style="background-color: #2E3A1F; color: #FFF8EC; text-decoration: none; padding: 14px 36px; font-size: 16px; font-weight: bold; border-radius: 999px; display: inline-block; box-shadow: 0 4px 15px rgba(46, 58, 31, 0.2);">
             🛒 ไปเลือกซื้อสินค้า GrobGrob เลย
           </a>
         </td>

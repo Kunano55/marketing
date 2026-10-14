@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // กำหนดหัวข้อหลักแสดงใน inbox ผู้รับ
             $mail->Subject = 'ยินดีต้อนรับสู่ GrobGrob! รับโค้ดส่วนลดพิเศษ 10% ทันที';
-            $mail->AltBody = "ยินดีต้อนรับสู่ GrobGrob สาหร่ายอบกรอบแท้ 100%!\nขอบคุณที่สมัครรับข่าวสารกับเรา\nโค้ดส่วนลดของคุณ: WELCOME10 (รับส่วนลด 10%)\nเลือกซื้อสินค้า: https://grobgrob.com/products";
+            $mail->AltBody = "ยินดีต้อนรับสู่ GrobGrob สาหร่ายอบกรอบแท้ 100%!\nขอบคุณที่สมัครรับข่าวสารกับเรา\nโค้ดส่วนลดของคุณ: WELCOME10 (รับส่วนลด 10%)\nเลือกซื้อสินค้า: https://kunano55.github.io/marketing/products.html";
             $mail->Body    = $bodyContent;
             $mail->addCustomHeader('X-Mailer', 'GrobGrob Newsletter');
             $mail->addCustomHeader('Precedence', 'bulk');

@@ -90,6 +90,10 @@ function sendMemberWelcomeEmail($toEmail, $fullName, $userId, $preferredCategory
         $hasPersonalized = !empty($preferredFlavor) && isset($flavorMap[$preferredFlavor]);
         $selectedFlavor = $hasPersonalized ? $flavorMap[$preferredFlavor] : null;
 
+        // URL รูปภาพหลักสำหรับแสดงผลในอีเมลทุกไคลเอนต์ (Gmail, Outlook ฯลฯ)
+        $siteBaseUrl = 'https://kunano55.github.io/marketing';
+        $bannerUrl = $siteBaseUrl . '/email_design/member_welcome.jpg';
+
         // แนบรูปภาพโปสเตอร์หลักของ GrobGrob
         $bannerPath = __DIR__ . '/email_design/member_welcome.jpg';
         if (file_exists($bannerPath)) {
@@ -97,6 +101,7 @@ function sendMemberWelcomeEmail($toEmail, $fullName, $userId, $preferredCategory
         }
 
         // แนบรูปสินค้าเฉพาะกรณีระบุรสชาติ
+        $favProductUrl = $siteBaseUrl . '/assets/seaweed-sheet.png';
         if ($hasPersonalized) {
             $imageRelPath = 'assets/seaweed-sheet.png';
             if ($preferredCategory === 'sheet') {
@@ -116,6 +121,7 @@ function sendMemberWelcomeEmail($toEmail, $fullName, $userId, $preferredCategory
                 else $imageRelPath = 'assets/seaweed-flakes.png';
             }
 
+            $favProductUrl = $siteBaseUrl . '/' . $imageRelPath;
             $prodFullPath = __DIR__ . '/' . $imageRelPath;
             if (file_exists($prodFullPath)) {
                 $mimeType = mime_content_type($prodFullPath) ?: 'image/png';
@@ -159,7 +165,7 @@ function sendMemberWelcomeEmail($toEmail, $fullName, $userId, $preferredCategory
                 <table align='center' style='margin-bottom: 18px;'>
                   <tr>
                     <td align='center' style='background: #FFFFFF; border-radius: 16px; padding: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);'>
-                      <img src='cid:fav_product' alt='{$selectedFlavor['title']}' width='220' style='max-width: 220px; width: 100%; height: auto; display: block; border-radius: 10px;' />
+                      <img src='{$favProductUrl}' alt='{$selectedFlavor['title']}' width='220' style='max-width: 220px; width: 100%; height: auto; display: block; border-radius: 10px;' />
                     </td>
                   </tr>
                 </table>
@@ -271,7 +277,7 @@ function sendMemberWelcomeEmail($toEmail, $fullName, $userId, $preferredCategory
       <tr>
         <td align='center' style='background-color: #FFFFFF;'>
           <a href='https://grobgrob.com/products' target='_blank' style='text-decoration: none; display: block;'>
-            <img src='cid:member_welcome_banner' alt='ยินดีต้อนรับสมาชิกใหม่! GrobGrob Family' width='600' style='width: 100%; max-width: 600px; height: auto; display: block; border: 0; outline: none;' />
+            <img src='{$bannerUrl}' alt='ยินดีต้อนรับสมาชิกใหม่! GrobGrob Family' width='600' style='width: 100%; max-width: 600px; height: auto; display: block; border: 0; outline: none;' />
           </a>
         </td>
       </tr>

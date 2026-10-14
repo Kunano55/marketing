@@ -59,8 +59,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->addCustomHeader('X-Mailer', 'GrobGrob Newsletter');
             $mail->addCustomHeader('Precedence', 'bulk');
 
-            // ส่งอีเมล
-            $mail->send();
+            // ส่งผ่าน Resend / Brevo API (พอร์ต 443 สำหรับ Cloud / Render)
+            $sentViaApi = false;
+            if (file_exists(__DIR__ . '/resendHelper.php')) {
+                require_once __DIR__ . '/resendHelper.php';
+                if (function_exists('sendViaResendAPI')) {
+                    $sentViaApi = sendViaResendAPI($email, $mail->Subject, $mail->Body);
+                }
+            }
+
+            // หากไม่สำเร็จ ค่อย fallback ไปยัง SMTP ปกติ
+            if (!$sentViaApi) {
+                $mail->send();
+            }
 
             // บันทึกอีเมลผู้ติดตามลงไฟล์ subscribers.txt
             file_put_contents("subscribers.txt", date('Y-m-d H:i:s') . " - " . $email . "\n", FILE_APPEND);

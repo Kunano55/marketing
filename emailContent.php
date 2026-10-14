@@ -15,10 +15,10 @@ $bodyContent = '
   <center style="width: 100%; table-layout: fixed; background-color: #FAF2E6; padding: 30px 0;">
     <table align="center" style="width: 600px; max-width: 600px; background-color: #FFFFFF; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(46, 58, 31, 0.1); border-spacing: 0;">
       
-      <!-- 1. รูปภาพโปสเตอร์โปรโมชั่น / สินค้าแนะนำ (Embedded Image CID) -->
+      <!-- 1. รูปภาพโปสเตอร์โปรโมชั่น / สินค้าแนะนำ -->
       <tr>
         <td align="center" style="background-color: #FFFFFF; padding: 0;">
-          <img src="cid:promo_poster" alt="GrobGrob โปสเตอร์สินค้าแนะนำ" style="width: 100%; max-width: 600px; height: auto; display: block; border: 0;" />
+          <img src="https://kunano55.github.io/marketing/email_design/subscribe_newsletter.jpg" alt="GrobGrob โปสเตอร์สินค้าแนะนำ" style="width: 100%; max-width: 600px; height: auto; display: block; border: 0;" />
         </td>
       </tr>
 

@@ -65,14 +65,13 @@ function sendOrderConfirmationEmail($orderData) {
         $shippingAddress = htmlspecialchars($orderData['shippingAddress'] ?? 'จัดส่งตามที่อยู่ที่ระบุไว้ในระบบ');
         $customerPhone = htmlspecialchars($orderData['customerPhone'] ?? '-');
 
-        // แนบรูปภาพแบรนด์/โลโก้ถ้ามี
+        // รูปภาพแบรนด์/โลโก้ GrobGrob สำหรับแสดงผลในอีเมล
+        $logoUrl = 'https://kunano55.github.io/marketing/assets/logo.png';
         $logoPath = __DIR__ . '/assets/logo.png';
         if (file_exists($logoPath)) {
             $mail->addEmbeddedImage($logoPath, 'grob_logo', 'logo.png', 'base64', 'image/png', 'inline');
-            $logoHtml = '<img src="cid:grob_logo" alt="GrobGrob" style="max-height: 48px; display: inline-block;" />';
-        } else {
-            $logoHtml = '<span style="font-size:24px;font-weight:800;color:#2D5A27;">🌿 GrobGrob</span>';
         }
+        $logoHtml = '<img src="' . $logoUrl . '" alt="🌿 GrobGrob" style="max-height: 52px; display: inline-block; border: 0;" />';
 
         // สร้างตารางรายการสินค้า
         $itemsHtml = '';

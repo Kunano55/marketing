@@ -87,8 +87,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->setFrom($senderEmail, '🌿 GrobGrob Recommendations');
         $mail->addAddress($email);
 
-        // แนบรูปสินค้าเฉพาะบุคคลแบบ Embedded Image (CID)
-        $imagePath = __DIR__ . '/' . $selectedFlavor['image'];
+        // แนบรูปสินค้าเฉพาะบุคคลแบบ Embedded Image (CID) พร้อม Fallback URL สาธารณะ
+        $siteBaseUrl = 'https://kunano55.github.io/marketing';
+        $productRel = !empty($selectedFlavor['image']) ? $selectedFlavor['image'] : 'assets/seaweed-sheet.png';
+        $productImgUrl = $siteBaseUrl . '/' . $productRel;
+
+        $imagePath = __DIR__ . '/' . $productRel;
         if (!file_exists($imagePath)) {
             $imagePath = __DIR__ . '/assets/seaweed-sheet.png';
         }
@@ -132,7 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <tr>
                 <td align='center' style='padding: 30px 20px; background-color: #FFFDF9;'>
                   <div style='background: #FFFFFF; border-radius: 16px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: inline-block;'>
-                    <img src='cid:recommended_product' alt='{$selectedFlavor['title']}' width='280' style='max-width: 280px; width: 100%; height: auto; display: block; border-radius: 12px; border: 0; outline: none;' />
+                    <img src='{$productImgUrl}' alt='{$selectedFlavor['title']}' width='280' style='max-width: 280px; width: 100%; height: auto; display: block; border-radius: 12px; border: 0; outline: none;' />
                   </div>
                 </td>
               </tr>

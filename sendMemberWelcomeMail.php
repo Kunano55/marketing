@@ -26,6 +26,7 @@ function sendMemberWelcomeEmail($toEmail, $fullName, $userId, $preferredCategory
         $mail->Password = $appPassword;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
+        $mail->Timeout = 3;
 
         $mail->setFrom($senderEmail, '🌿 GrobGrob Member Services (กรอบกรอบ)');
         $mail->addAddress($toEmail);

@@ -38,6 +38,7 @@ function sendOrderConfirmationEmail($orderData) {
         $mail->Password = $appPassword;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
+        $mail->Timeout = 3;
 
         $mail->setFrom($senderEmail, '🌿 GrobGrob Shop (คำสั่งซื้อ)');
         

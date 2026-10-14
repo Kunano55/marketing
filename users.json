@@ -1,0 +1,50 @@
+[
+  {
+    "userId": "USER-2026-001",
+    "username": "somchai_grob",
+    "email": "somchai@example.com",
+    "password": "Password123!",
+    "fullName": "นายสมชาย ใจดี",
+    "phone": "081-234-5678",
+    "birthDate": "1995-05-15",
+    "gender": "ชาย",
+    "address": "99/1 หมู่บ้านสุขสันต์ ถนนพัฒนาการ",
+    "subdistrict": "สวนหลวง",
+    "district": "สวนหลวง",
+    "province": "กรุงเทพมหานคร",
+    "zipcode": "10250",
+    "registeredAt": "2026-09-01T10:00:00.000Z"
+  },
+  {
+    "userId": "USER-2026-002",
+    "username": "may_healthy",
+    "email": "may.n@example.com",
+    "password": "Password123!",
+    "fullName": "นางสาวนภาวรรณ มีสุข",
+    "phone": "089-876-5432",
+    "birthDate": "1998-11-20",
+    "gender": "หญิง",
+    "address": "45/12 คอนโดลุมพินี ซอยสุขุมวิท 55",
+    "subdistrict": "คลองตันเหนือ",
+    "district": "วัฒนา",
+    "province": "กรุงเทพมหานคร",
+    "zipcode": "10110",
+    "registeredAt": "2026-09-01T14:30:00.000Z"
+  },
+  {
+    "userId": "USER-2026-004",
+    "username": "kong",
+    "email": "kong@gmail.com",
+    "password": "123456",
+    "fullName": "นายก้อง สารี",
+    "phone": "0812345678",
+    "birthDate": "2003-02-13",
+    "gender": "ชาย",
+    "address": "200",
+    "subdistrict": "หนองบัว",
+    "district": "เมือง",
+    "province": "อุดร",
+    "zipcode": "41000",
+    "registeredAt": "2026-09-01T17:50:07.770Z"
+  }
+]

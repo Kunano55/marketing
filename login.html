@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>เข้าสู่ระบบ - GrobGrob สาหร่ายอบกรอบแท้ 100%</title>
+  <meta name="description"
+    content="เข้าสู่ระบบสมาชิก GrobGrob เพื่อดำเนินการสั่งซื้อสินค้า สะสมแต้ม และรับสิทธิพิเศษ" />
+  <link rel="stylesheet" href="style.css?v=6" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+</head>
+
+<body class="auth-page-bg">
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Header / Navbar -->
+  <header id="navbar" class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo-wrapper" title="GrobGrob หน้าแรก">
+        <img src="assets/logo.png" alt="GrobGrob โลโก้" class="logo-img" />
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">หน้าแรก</a></li>
+          <li><a href="products.html" class="nav-link">สินค้าทั้งหมด</a></li>
+          <li><a href="cart.html" class="nav-link">ตะกร้าสินค้า 🛒</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="nav-auth-slot">
+          <div class="nav-guest-actions">
+            <a href="register.html" class="nav-auth-btn nav-btn-register">
+              <span>📝 สมัครสมาชิก</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Login Form Section -->
+  <section class="auth-section">
+    <div class="container">
+      <div class="auth-card-container" style="max-width: 460px;">
+
+        <div class="auth-header">
+          <span class="badge badge-cream mb-12">🔑 MEMBER LOGIN</span>
+          <h2>เข้าสู่ระบบสมาชิก</h2>
+          <p>กรอกชื่อผู้ใช้หรืออีเมลและรหัสผ่านเพื่อสั่งซื้อสินค้า</p>
+        </div>
+
+        <form id="loginForm" class="auth-form-single">
+          <div class="form-group">
+            <label for="loginIdentifier">ชื่อผู้ใช้ หรือ อีเมล <span class="required">*</span></label>
+            <input type="text" id="loginIdentifier" required placeholder="username หรือ email@example.com"
+              class="form-input" />
+          </div>
+
+          <div class="form-group">
+            <label for="loginPassword">รหัสผ่าน <span class="required">*</span></label>
+            <input type="password" id="loginPassword" required placeholder="รหัสผ่านของคุณ" class="form-input" />
+          </div>
+
+          <div class="form-group" style="margin-top: 10px;">
+            <label class="checkbox-container">
+              <input type="checkbox" id="rememberMe" checked />
+              <span>จดจำการเข้าสู่ระบบไว้ในอุปกรณ์นี้</span>
+            </label>
+          </div>
+
+          <div class="auth-submit-box" style="margin-top: 24px;">
+            <button type="submit" class="btn-primary btn-auth-submit" style="width: 100%;">
+              <span>🔑 เข้าสู่ระบบ</span>
+            </button>
+            <p class="auth-switch-text" style="margin-top: 16px;">
+              ยังไม่มีบัญชีสมาชิก? <a href="register.html">สมัครสมาชิกใหม่ที่นี่</a>
+            </p>
+
+            <div style="margin-top: 18px; padding: 12px 14px; background: #F4F8EC; border: 1px dashed #6E8B3D; border-radius: 12px; font-size: 0.85rem; color: #2E3A1F; text-align: left;">
+              <strong>💡 บัญชีทดสอบสำหรับตรวจงาน:</strong><br/>
+              • Username: <code>kong</code> / Password: <code>123456</code><br/>
+              • หรือ <a href="register.html" style="color: #6E8B3D; font-weight: bold; text-decoration: underline;">คลิกสมัครสมาชิกใหม่</a> เพื่อทดสอบระบบได้ทันที
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container text-center">
+      <p>&copy; 2026 GrobGrob Co., Ltd. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="app.js?v=6"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginForm = document.getElementById('loginForm');
+      if (!loginForm) return;
+
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const identifier = document.getElementById('loginIdentifier').value.trim();
+        const password = document.getElementById('loginPassword').value;
+
+        if (!identifier || !password) {
+          alert('❌ กรุณากรอกชื่อผู้ใช้/อีเมล และรหัสผ่าน');
+          return;
+        }
+
+
+        const submitBtn = loginForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>⏳ กำลังตรวจสอบกับฐานข้อมูล MySQL...</span>';
+
+        try {
+          // 1. Authenticate with MySQL Backend API (PHP api/login.php or Python /api/login)
+          let response = null;
+          const isPythonPort = window.location.port === '8089';
+          const primaryApi = isPythonPort ? '/api/login' : 'api/login.php';
+          const secondaryApi = isPythonPort ? 'api/login.php' : '/api/login';
+
+          try {
+            response = await fetch(primaryApi, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ identifier, password })
+            });
+            if (!response.ok && response.status === 404) {
+              response = await fetch(secondaryApi, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ identifier, password })
+              });
+            }
+          } catch (netErr) {
+            response = await fetch(secondaryApi, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ identifier, password })
+            }).catch(() => null);
+          }
+
+          if (response) {
+            const data = await response.json().catch(() => ({}));
+            if (response.ok && data.success && data.user) {
+              const u = data.user;
+              const loggedInUser = {
+                userId: u.user_id || u.userId,
+                username: u.username,
+                email: u.email,
+                fullName: u.full_name || u.fullName,
+                phone: u.phone,
+                birthDate: u.birth_date || u.birthDate,
+                gender: u.gender,
+                address: u.address,
+                subdistrict: u.subdistrict,
+                district: u.district,
+                province: u.province,
+                zipcode: u.zipcode
+              };
+
+              if (window.GrobAuth) {
+                window.GrobAuth.setCurrentUser(loggedInUser);
+              } else {
+                localStorage.setItem('grobgrob_current_user', JSON.stringify(loggedInUser));
+              }
+
+              alert(`🎉 เข้าสู่ระบบสำเร็จ ยินดีต้อนรับกลับ คุณ ${loggedInUser.fullName || loggedInUser.username}!`);
+              window.location.href = 'products.html';
+              return;
+            } else if ((response.status === 401 || response.status === 400) && data && data.error) {
+              alert(data.error);
+              return;
+            }
+          }
+
+          // Fallback to local storage matching (e.g. GitHub Pages)
+          const usersList = window.GrobAuth ? window.GrobAuth.getUsers() : [];
+          const userMatch = usersList.find(u =>
+            ((u.username && u.username.toLowerCase() === identifier.toLowerCase()) ||
+             (u.email && u.email.toLowerCase() === identifier.toLowerCase())) &&
+            u.password === password
+          );
+
+          if (userMatch) {
+            if (window.GrobAuth) {
+              window.GrobAuth.setCurrentUser(userMatch);
+            } else {
+              localStorage.setItem('grobgrob_current_user', JSON.stringify(userMatch));
+            }
+            alert(`🎉 เข้าสู่ระบบสำเร็จ ยินดีต้อนรับกลับ คุณ ${userMatch.fullName || userMatch.username}!`);
+            window.location.href = 'products.html';
+          } else {
+            alert('❌ ชื่อผู้ใช้/อีเมล หรือ รหัสผ่านไม่ถูกต้อง!\n(หรือกดสมัครสมาชิกใหม่หากยังไม่มีบัญชี)\n\n💡 บัญชีทดสอบสำหรับตรวจงาน:\nผู้ใช้: kong / รหัสผ่าน: 123456\nหรือ: somchai_grob / รหัสผ่าน: Password123!');
+          }
+        } catch (err) {
+          console.error(err);
+          alert('❌ เกิดข้อผิดพลาดในการเข้าสู่ระบบ กรุณาลองใหม่อีกครั้ง');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnText;
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

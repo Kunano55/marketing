@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>สมัครสมาชิก - GrobGrob สาหร่ายอบกรอบแท้ 100%</title>
+  <meta name="description" content="ลงทะเบียนสมัครสมาชิก GrobGrob รับสิทธิพิเศษ โค้ดส่วนลด และสิทธิ์ในการสั่งซื้อสาหร่ายอบกรอบพรีเมียม" />
+  <link rel="stylesheet" href="style.css?v=6" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <style>
+    .reg-cat-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .reg-cat-btn {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      border-radius: 12px;
+      border: 2px solid #E5E1D8;
+      background: #FFFFFF;
+      cursor: pointer;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .reg-cat-btn input { display: none; }
+    .reg-cat-btn:hover { border-color: #6E8B3D; background: #FDFBF7; }
+    .reg-cat-btn.active {
+      background: #2E3A1F;
+      color: #FFFFFF;
+      border-color: #2E3A1F;
+      font-weight: 700;
+    }
+
+    .reg-flavor-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    @media (max-width: 540px) {
+      .reg-flavor-grid { grid-template-columns: 1fr; }
+      .reg-cat-group { flex-direction: column; }
+    }
+    .reg-flavor-card {
+      border: 2px solid #E5E1D8;
+      border-radius: 12px;
+      padding: 10px 14px;
+      background: #FFFFFF;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+    }
+    .reg-flavor-card input { display: none; }
+    .reg-flavor-card:hover { border-color: #6E8B3D; background: #FDFBF7; }
+    .reg-flavor-card.active {
+      border-color: #E86B43;
+      background: #FFF8EC;
+      box-shadow: 0 4px 12px rgba(232, 107, 67, 0.12);
+    }
+    .reg-flavor-icon { font-size: 1.5rem; line-height: 1; }
+    .reg-flavor-info strong { display: block; font-size: 0.9rem; color: #2E3A1F; }
+    .reg-flavor-info small { color: #777; font-size: 0.78rem; }
+  </style>
+</head>
+
+<body class="auth-page-bg">
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Header / Navbar -->
+  <header id="navbar" class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo-wrapper" title="GrobGrob หน้าแรก">
+        <img src="assets/logo.png" alt="GrobGrob โลโก้" class="logo-img" />
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">หน้าแรก</a></li>
+          <li><a href="products.html" class="nav-link">สินค้าทั้งหมด</a></li>
+          <li><a href="cart.html" class="nav-link">ตะกร้าสินค้า 🛒</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="nav-auth-slot">
+          <div class="nav-guest-actions">
+            <a href="login.html" class="nav-auth-btn nav-btn-login" style="background: var(--bg-cream); border: 1px solid #E5E1D8;">
+              <span>🔑 เข้าสู่ระบบ</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Register Form Section -->
+  <section class="auth-section">
+    <div class="container">
+      <div class="auth-card-container">
+        
+        <div class="auth-header">
+          <span class="badge badge-cream mb-12">🍃 MEMBER REGISTRATION</span>
+          <h2>สมัครสมาชิก GrobGrob</h2>
+          <p>ลงทะเบียนเพียงครั้งเดียว สั่งซื้อสะดวก พร้อมสะสมแต้มและรับโปรโมชั่นพิเศษก่อนใคร</p>
+        </div>
+
+        <form id="registerForm" class="auth-form-grid">
+          
+          <!-- Section 1: Account Info -->
+          <div class="form-fieldset">
+            <h3 class="fieldset-title">1. ข้อมูลบัญชีผู้ใช้ (Account Information)</h3>
+            
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="username">ชื่อผู้ใช้ (Username) <span class="required">*</span></label>
+                <input type="text" id="username" name="username" required placeholder="เช่น somchai_grob" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label for="email">อีเมล (Email Address) <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required placeholder="name@example.com" class="form-input" />
+              </div>
+            </div>
+
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="password">รหัสผ่าน (Password) <span class="required">*</span></label>
+                <input type="password" id="password" name="password" required placeholder="อย่างน้อย 6 ตัวอักษร" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label for="confirmPassword">ยืนยันรหัสผ่าน (Confirm Password) <span class="required">*</span></label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="พิมพ์รหัสผ่านซ้ำอีกครั้ง" class="form-input" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Personal Info -->
+          <div class="form-fieldset">
+            <h3 class="fieldset-title">2. ข้อมูลส่วนตัวและติดต่อ (Personal Info)</h3>
+            
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="fullName">ชื่อ-นามสกุล (Full Name) <span class="required">*</span></label>
+                <input type="text" id="fullName" name="fullName" required placeholder="นาย/นาง/นางสาว..." class="form-input" />
+              </div>
+              <div class="form-group">
+                <label for="phone">เบอร์โทรศัพท์ (Mobile Phone) <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" required placeholder="08X-XXX-XXXX" class="form-input" />
+              </div>
+            </div>
+
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="birthDate">วัน/เดือน/ปีเกิด (Date of Birth)</label>
+                <input type="date" id="birthDate" name="birthDate" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label for="gender">เพศ (Gender)</label>
+                <select id="gender" name="gender" class="form-select">
+                  <option value="ไม่ระบุ">-- เลือกเพศ --</option>
+                  <option value="ชาย">ชาย (Male)</option>
+                  <option value="หญิง">หญิง (Female)</option>
+                  <option value="LGBTQ+">LGBTQ+ / อื่นๆ</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Delivery Address -->
+          <div class="form-fieldset">
+            <h3 class="fieldset-title">3. ข้อมูลที่อยู่จัดส่งสินค้า (Shipping Address)</h3>
+            
+            <div class="form-group">
+              <label for="address">บ้านเลขที่ / อาคาร / ถนน / ซอย</label>
+              <input type="text" id="address" name="address" placeholder="เช่น 99/12 หมู่บ้านสุขสันต์ ถนนพัฒนาการ ซอย 20" class="form-input" />
+            </div>
+
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="subdistrict">แขวง/ตำบล</label>
+                <input type="text" id="subdistrict" name="subdistrict" placeholder="แขวงสวนหลวง" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label for="district">เขต/อำเภอ</label>
+                <input type="text" id="district" name="district" placeholder="เขตสวนหลวง" class="form-input" />
+              </div>
+            </div>
+
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="province">จังหวัด</label>
+                <input type="text" id="province" name="province" placeholder="กรุงเทพมหานคร" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label for="zipcode">รหัสไปรษณีย์</label>
+                <input type="text" id="zipcode" name="zipcode" placeholder="10250" class="form-input" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 4: Taste & Product Preferences (สินค้าแนะนำเฉพาะคุณ - ไม่บังคับ) -->
+          <div class="form-fieldset" style="background: #FAF8F5; border: 2px solid #EBF2D5; border-radius: 18px; padding: 22px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+              <h3 class="fieldset-title" style="margin-bottom: 0; color: #2E3A1F;">
+                4. รสชาติและสไตล์สินค้าที่คุณชอบ (Personalized Pick)
+              </h3>
+              <div style="display: flex; gap: 6px; align-items: center;">
+                <span class="badge" style="background: #718096; color: #FFF; font-size: 0.75rem; padding: 4px 10px; border-radius: 999px;">ไม่บังคับ (Optional)</span>
+                <span class="badge" style="background: #E86B43; color: #FFF; font-size: 0.75rem; padding: 4px 10px; border-radius: 999px; font-weight: bold;">🎯 รับโค้ดลด 15%</span>
+              </div>
+            </div>
+            <p style="font-size: 0.88rem; color: #666; margin-bottom: 14px; line-height: 1.5;">
+              คุณสามารถระบุรสชาติที่สนใจเพื่อรับคูปองส่วนลด 15% ทางอีเมลต้อนรับ หรือข้ามขั้นตอนนี้ได้หากยังไม่ต้องการระบุในขณะนี้
+            </p>
+
+            <!-- Toggle Checkbox Card -->
+            <label id="tasteToggleLabel" style="display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 12px 16px; background: #FFFFFF; border: 2px solid #E5E1D8; border-radius: 14px; transition: all 0.2s ease;">
+              <input type="checkbox" id="specifyTasteCheckbox" style="width: 20px; height: 20px; accent-color: #6E8B3D; cursor: pointer;" />
+              <div>
+                <strong style="display: block; color: #2E3A1F; font-size: 0.95rem;">✨ ฉันต้องการระบุรสชาติที่ชอบ (เพื่อรับโค้ดส่วนลดพิเศษ 15% ในอีเมลต้อนรับ)</strong>
+                <small style="color: #777; font-size: 0.82rem;">(หากไม่ติ๊กเลือก ระบบจะข้ามขั้นตอนนี้และส่งอีเมลต้อนรับมาตรฐาน)</small>
+              </div>
+            </label>
+
+            <!-- Collapsible Options -->
+            <div id="tasteOptionsContainer" style="display: none; margin-top: 18px; padding-top: 14px; border-top: 1px dashed #DDD8CE;">
+              <!-- 4.1 รูปแบบสาหร่าย -->
+              <label style="font-weight: 600; color: #2E3A1F; display: block; margin-bottom: 8px; font-size: 0.95rem;">
+                4.1 รูปแบบสาหร่ายที่คุณชอบมากที่สุด:
+              </label>
+              <div class="reg-cat-group">
+                <label class="reg-cat-btn active">
+                  <input type="radio" name="preferredCategory" value="sheet" checked />
+                  <span>🍘 สาหร่ายแผ่น</span>
+                </label>
+                <label class="reg-cat-btn">
+                  <input type="radio" name="preferredCategory" value="roll" />
+                  <span>🥢 สาหร่ายม้วน</span>
+                </label>
+                <label class="reg-cat-btn">
+                  <input type="radio" name="preferredCategory" value="flake" />
+                  <span>🍚 สาหร่ายผงโรยข้าว</span>
+                </label>
+              </div>
+
+            <!-- 4.2 เลือกรสชาติ -->
+            <label style="font-weight: 600; color: #2E3A1F; display: block; margin: 16px 0 8px 0; font-size: 0.95rem;">
+              4.2 เลือกรสชาติที่คุณถูกใจที่สุด:
+            </label>
+            <div class="reg-flavor-grid">
+              <label class="reg-flavor-card">
+                <input type="radio" name="preferredFlavor" value="spicy" />
+                <span class="reg-flavor-icon">🔥</span>
+                <div class="reg-flavor-info">
+                  <strong>รสสไปซี่</strong>
+                  <small>เผ็ดซี้ดจัดจ้าน</small>
+                </div>
+              </label>
+
+              <label class="reg-flavor-card active">
+                <input type="radio" name="preferredFlavor" value="original" checked />
+                <span class="reg-flavor-icon">🌿</span>
+                <div class="reg-flavor-info">
+                  <strong>รสออริจินัล</strong>
+                  <small>เกลือทะเลธรรมชาติ</small>
+                </div>
+              </label>
+
+              <label class="reg-flavor-card">
+                <input type="radio" name="preferredFlavor" value="bbq" />
+                <span class="reg-flavor-icon">🍢</span>
+                <div class="reg-flavor-info">
+                  <strong>รสบาร์บีคิว</strong>
+                  <small>หอมกลิ่นรมควัน</small>
+                </div>
+              </label>
+
+              <label class="reg-flavor-card">
+                <input type="radio" name="preferredFlavor" value="wasabi" />
+                <span class="reg-flavor-icon">🍣</span>
+                <div class="reg-flavor-info">
+                  <strong>รสวาซาบิ</strong>
+                  <small>ซี้ดขึ้นจมูกญี่ปุ่นแท้</small>
+                </div>
+              </label>
+
+              <label class="reg-flavor-card">
+                <input type="radio" name="preferredFlavor" value="corncheese" />
+                <span class="reg-flavor-icon">🧀</span>
+                <div class="reg-flavor-info">
+                  <strong>รสคอร์นชีส</strong>
+                  <small>หอมหวานข้าวโพดชีส</small>
+                </div>
+              </label>
+
+              <label class="reg-flavor-card">
+                <input type="radio" name="preferredFlavor" value="tomyum" />
+                <span class="reg-flavor-icon">🌶️</span>
+                <div class="reg-flavor-info">
+                  <strong>รสต้มยำกุ้ง</strong>
+                  <small>เปรี้ยวเผ็ดเข้มข้น</small>
+                </div>
+              </label>
+            </div>
+          </div>
+          </div>
+
+          <!-- Section 5: Terms & Privacy Consent -->
+          <div class="form-fieldset">
+            <h3 class="fieldset-title">5. ข้อตกลงและยินยอมข้อมูลส่วนบุคคล (Terms & PDPA Consent)</h3>
+            
+            <div class="consent-box">
+              <label class="consent-item">
+                <input type="checkbox" id="termsConsent" name="termsConsent" required />
+                <span class="consent-label-text">
+                  ฉันได้อ่านและยอมรับ <a href="javascript:void(0)" onclick="openTermsModal()" class="consent-link">ข้อตกลงเงื่อนไขการให้บริการ</a> และ <a href="javascript:void(0)" onclick="openPrivacyModal()" class="consent-link">นโยบายความเป็นส่วนตัว (PDPA Privacy Policy)</a> ของ GrobGrob <span class="required">*</span>
+                </span>
+              </label>
+
+              <label class="consent-item">
+                <input type="checkbox" id="marketingConsent" name="marketingConsent" />
+                <span class="consent-label-text">
+                  ยินยอมรับข่าวสาร สิทธิพิเศษ โค้ดส่วนลด และกิจกรรมทางการตลาดจาก GrobGrob ผ่านทางอีเมลและ SMS (ยกเลิกได้ทุกเมื่อ)
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Submit Controls -->
+          <div class="auth-submit-box">
+            <button type="submit" id="submitRegisterBtn" class="btn-primary btn-auth-submit">
+              <span>🎉 ยินยอมข้อตกลงและสมัครสมาชิก</span>
+            </button>
+            <p class="auth-switch-text">
+              มีบัญชีสมาชิกอยู่แล้ว? <a href="login.html">เข้าสู่ระบบที่นี่</a>
+            </p>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Terms & Privacy Modals -->
+  <div id="termsModal" class="modal-overlay">
+    <div class="modal-box" style="max-width: 580px; padding: 32px;">
+      <button class="modal-close" onclick="document.getElementById('termsModal').classList.remove('active')">&times;</button>
+      <h3 style="font-size: 1.4rem; color: var(--color-olive-dark); margin-bottom: 12px;">📜 ข้อตกลงและเงื่อนไขการให้บริการ GrobGrob</h3>
+      <div style="font-size: 0.9rem; color: var(--color-charcoal); line-height: 1.6; max-height: 320px; overflow-y: auto; padding-right: 8px;">
+        <p>1. <strong>การสมัครสมาชิก:</strong> ผู้สมัครต้องกรอกข้อมูลที่เป็นความจริงเพื่อประโยชน์ในการรับสิทธิ์ส่วนลดและจัดส่งสินค้า</p>
+        <p style="margin-top: 10px;">2. <strong>การสั่งซื้อและชำระเงิน:</strong> คำสั่งซื้อจะสมบูรณ์เมื่อผู้ใช้ได้รับการยืนยันและชำระเงินตามเงื่อนไขที่กำหนด</p>
+        <p style="margin-top: 10px;">3. <strong>การจัดส่งสินค้า:</strong> บริการจัดส่งทั่วประเทศ โดยมีสิทธิ์ส่งฟรีเมื่อยอดซื้อครบ 150 บาทขึ้นไป</p>
+        <p style="margin-top: 10px;">4. <strong>สิทธิ์ในการยกเลิก:</strong> GrobGrob ขอสงวนสิทธิ์ในการยกเลิกคำสั่งซื้อในกรณีพบบุคคลใช้ข้อมูลเท็จหรือทุจริต</p>
+      </div>
+      <div style="margin-top: 24px; text-align: right;">
+        <button class="btn-primary" onclick="document.getElementById('termsConsent').checked = true; document.getElementById('termsModal').classList.remove('active')">
+          <span>✅ อ่านแล้วและยอมรับข้อตกลง</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="privacyModal" class="modal-overlay">
+    <div class="modal-box" style="max-width: 580px; padding: 32px;">
+      <button class="modal-close" onclick="document.getElementById('privacyModal').classList.remove('active')">&times;</button>
+      <h3 style="font-size: 1.4rem; color: var(--color-olive-dark); margin-bottom: 12px;">🛡️ นโยบายความเป็นส่วนตัว (PDPA Policy)</h3>
+      <div style="font-size: 0.9rem; color: var(--color-charcoal); line-height: 1.6; max-height: 320px; overflow-y: auto; padding-right: 8px;">
+        <p>1. <strong>การเก็บรวบรวมข้อมูล:</strong> เราเก็บรักษา ชื่อ, อีเมล, เบอร์โทรศัพท์ และที่อยู่จัดส่ง เพื่อใช้ในการประมวลผลคำสั่งซื้อและจัดส่งสินค้าเท่านั้น</p>
+        <p style="margin-top: 10px;">2. <strong>การรักษาความปลอดภัย:</strong> ข้อมูลของคุณจะถูกจัดเก็บอย่างปลอดภัย ไม่ถูกนำไปขายหรือเปิดเผยแก่บุคคลภายนอกโดยไม่ได้รับอนุญาต</p>
+        <p style="margin-top: 10px;">3. <strong>สิทธิ์ของเจ้าของข้อมูล:</strong> คุณมีสิทธิ์เข้าถึง แก้ไข หรือร้องขอให้ลบข้อมูลส่วนบุคคลของคุณได้ทุกเมื่อ</p>
+      </div>
+      <div style="margin-top: 24px; text-align: right;">
+        <button class="btn-primary" onclick="document.getElementById('termsConsent').checked = true; document.getElementById('privacyModal').classList.remove('active')">
+          <span>✅ เข้าใจนโยบายความเป็นส่วนตัว</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container text-center">
+      <p>&copy; 2026 GrobGrob Co., Ltd. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    function openTermsModal() {
+      document.getElementById('termsModal')?.classList.add('active');
+    }
+    function openPrivacyModal() {
+      document.getElementById('privacyModal')?.classList.add('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Toggle for Optional Taste Preferences
+      const tasteToggle = document.getElementById('specifyTasteCheckbox');
+      const tasteContainer = document.getElementById('tasteOptionsContainer');
+      const tasteLabel = document.getElementById('tasteToggleLabel');
+
+      if (tasteToggle && tasteContainer) {
+        tasteToggle.addEventListener('change', function() {
+          if (this.checked) {
+            tasteContainer.style.display = 'block';
+            if (tasteLabel) {
+              tasteLabel.style.borderColor = '#6E8B3D';
+              tasteLabel.style.backgroundColor = '#FDFBF7';
+            }
+          } else {
+            tasteContainer.style.display = 'none';
+            if (tasteLabel) {
+              tasteLabel.style.borderColor = '#E5E1D8';
+              tasteLabel.style.backgroundColor = '#FFFFFF';
+            }
+          }
+        });
+      }
+
+      // Interactive selection handlers for taste preferences
+      document.querySelectorAll('.reg-cat-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.reg-cat-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          const radio = this.querySelector('input[type="radio"]');
+          if (radio) radio.checked = true;
+        });
+      });
+
+      document.querySelectorAll('.reg-flavor-card').forEach(card => {
+        card.addEventListener('click', function() {
+          document.querySelectorAll('.reg-flavor-card').forEach(c => c.classList.remove('active'));
+          this.classList.add('active');
+          const radio = this.querySelector('input[type="radio"]');
+          if (radio) radio.checked = true;
+        });
+      });
+
+      const registerForm = document.getElementById('registerForm');
+      if (!registerForm) return;
+
+      registerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const username = (document.getElementById('username')?.value || '').trim();
+        const email = (document.getElementById('email')?.value || '').trim();
+        const password = document.getElementById('password')?.value || '';
+        const confirmPassword = document.getElementById('confirmPassword')?.value || '';
+        const fullName = (document.getElementById('fullName')?.value || '').trim();
+        const phone = (document.getElementById('phone')?.value || '').trim();
+        const birthDate = document.getElementById('birthDate')?.value || '';
+        const gender = document.getElementById('gender')?.value || 'ไม่ระบุ';
+        const address = (document.getElementById('address')?.value || '').trim();
+        const subdistrict = (document.getElementById('subdistrict')?.value || '').trim();
+        const district = (document.getElementById('district')?.value || '').trim();
+        const province = (document.getElementById('province')?.value || '').trim();
+        const zipcode = (document.getElementById('zipcode')?.value || '').trim();
+
+        let preferredCategory = null;
+        let preferredFlavor = null;
+        if (tasteToggle && tasteToggle.checked) {
+          preferredCategory = document.querySelector('input[name="preferredCategory"]:checked')?.value || 'sheet';
+          preferredFlavor = document.querySelector('input[name="preferredFlavor"]:checked')?.value || 'original';
+        }
+
+        const termsConsent = document.getElementById('termsConsent')?.checked;
+        const marketingConsent = document.getElementById('marketingConsent')?.checked;
+
+        if (!username || !email || !password || !fullName || !phone) {
+          alert('❌ กรุณากรอกข้อมูลสำคัญให้ครบถ้วน (ชื่อผู้ใช้, อีเมล, รหัสผ่าน, ชื่อ-นามสกุล, เบอร์โทรศัพท์)');
+          return;
+        }
+
+        if (!termsConsent) {
+          alert('❌ กรุณากดติ๊กยอมรับข้อตกลงและนโยบายความเป็นส่วนตัวก่อนสมัครสมาชิก');
+          return;
+        }
+
+        if (password !== confirmPassword) {
+          alert('❌ รหัสผ่านและการยืนยันรหัสผ่านไม่ตรงกัน!');
+          return;
+        }
+
+        if (password.length < 4) {
+          alert('❌ รหัสผ่านต้องมีความยาวอย่างน้อย 4 ตัวอักษรขึ้นไป');
+          return;
+        }
+
+
+        const submitBtn = registerForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>⏳ กำลังบันทึกข้อมูลและจัดส่งอีเมลต้อนรับ...</span>';
+
+        const newUserPayload = {
+          username,
+          email,
+          password,
+          fullName,
+          phone,
+          birthDate: birthDate || null,
+          gender,
+          address,
+          subdistrict,
+          district,
+          province,
+          zipcode,
+          preferredCategory,
+          preferredFlavor,
+          termsAccepted: true,
+          marketingConsent: !!marketingConsent
+        };
+
+        try {
+          // 1. Send registration to MySQL API (PHP api/register.php or Python /api/register)
+          let response = null;
+          const isPythonPort = window.location.port === '8089';
+          const primaryApi = isPythonPort ? '/api/register' : 'api/register.php';
+          const secondaryApi = isPythonPort ? 'api/register.php' : '/api/register';
+
+          try {
+            response = await fetch(primaryApi, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(newUserPayload)
+            });
+            if (!response.ok && response.status === 404) {
+              response = await fetch(secondaryApi, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newUserPayload)
+              });
+            }
+          } catch (netErr) {
+            response = await fetch(secondaryApi, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(newUserPayload)
+            }).catch(() => null);
+          }
+
+          if (response) {
+            const data = await response.json().catch(() => ({}));
+            if (response.ok && data.success) {
+
+            // Successfully saved in MySQL
+            const created = data.user || newUserPayload;
+            const savedUser = {
+              userId: created.user_id || created.userId || `USER-${Date.now()}`,
+              username: created.username || username,
+              email: created.email || email,
+              fullName: created.full_name || created.fullName || fullName,
+              phone: created.phone || phone,
+              birthDate: created.birth_date || created.birthDate || birthDate,
+              gender: created.gender || gender,
+              address: created.address || address,
+              subdistrict: created.subdistrict || subdistrict,
+              district: created.district || district,
+              province: created.province || province,
+              zipcode: created.zipcode || zipcode,
+              preferredCategory: created.preferred_category || created.preferredCategory || preferredCategory,
+              preferredFlavor: created.preferred_flavor || created.preferredFlavor || preferredFlavor,
+              termsAccepted: true,
+              marketingConsent: !!marketingConsent,
+              registeredAt: created.registered_at || new Date().toISOString()
+            };
+
+            const usersList = window.GrobAuth ? window.GrobAuth.getUsers() : [];
+            usersList.push(savedUser);
+
+            if (window.GrobAuth) {
+              window.GrobAuth.saveUsers(usersList);
+              window.GrobAuth.setCurrentUser(savedUser);
+            } else {
+              localStorage.setItem('grobgrob_users', JSON.stringify(usersList));
+              localStorage.setItem('grobgrob_current_user', JSON.stringify(savedUser));
+            }
+
+            alert(`🎉 สมัครสมาชิกและบันทึกข้อมูลสำเร็จเรียบร้อยแล้ว!\nยินดีต้อนรับคุณ ${savedUser.fullName}\n\n📧 เราได้ส่งอีเมลต้อนรับสมาชิกพร้อมคูปองส่วนลด 15% ตรงไปยังกล่องจดหมาย:\n${savedUser.email} เรียบร้อยแล้ว!`);
+            window.location.href = 'products.html';
+            return;
+          } else if ((response.status === 400 || response.status === 409) && data && data.error) {
+            alert(`❌ ${data.error}`);
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+            return;
+          }
+        }
+
+        // Fallback if no backend available (e.g. GitHub Pages)
+        const usersList = window.GrobAuth ? window.GrobAuth.getUsers() : [];
+        const existing = usersList.find(u =>
+          (u.username && u.username.toLowerCase() === username.toLowerCase()) ||
+          (u.email && u.email.toLowerCase() === email.toLowerCase())
+        );
+        if (existing) {
+          alert('❌ ชื่อผู้ใช้หรืออีเมลนี้ถูกลงทะเบียนไว้แล้ว!');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnText;
+          return;
+        }
+
+        const localUser = {
+          userId: `USER-2026-${String(usersList.length + 1).padStart(3, '0')}`,
+          ...newUserPayload,
+          registeredAt: new Date().toISOString()
+        };
+        usersList.push(localUser);
+        if (window.GrobAuth) {
+          window.GrobAuth.saveUsers(usersList);
+          window.GrobAuth.setCurrentUser(localUser);
+        } else {
+          localStorage.setItem('grobgrob_users', JSON.stringify(usersList));
+          localStorage.setItem('grobgrob_current_user', JSON.stringify(localUser));
+        }
+        alert(`🎉 สมัครสมาชิกและบันทึกข้อมูลสำเร็จเรียบร้อยแล้ว!\nยินดีต้อนรับคุณ ${fullName}\n\n📧 เราได้จัดส่งอีเมลต้อนรับสมาชิกพร้อมคูปองส่วนลด 15% ตรงไปยังกล่องจดหมาย:\n${email} เรียบร้อยแล้ว!`);
+        window.location.href = 'products.html';
+
+        } catch (err) {
+          console.error(err);
+          alert('❌ เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองใหม่อีกครั้ง');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnText;
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

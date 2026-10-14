@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GrobGrob - Email Content Design Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-white: #FFFFFF;
+      --bg-cream: #F6E7CE;
+      --bg-cream-light: #FAF2E6;
+      --color-olive-dark: #2E3A1F;
+      --color-leaf-medium: #6E8B3D;
+      --color-green-light: #A9C25A;
+      --color-charcoal: #2B2B26;
+      --color-charcoal-muted: #6b6b60;
+      --radius-md: 20px;
+      --radius-lg: 32px;
+      --shadow-md: 0 10px 30px rgba(46, 58, 31, 0.08);
+      --shadow-lg: 0 20px 40px rgba(46, 58, 31, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Prompt', sans-serif;
+      background: linear-gradient(135deg, #FAF2E6 0%, #FFFFFF 100%);
+      color: var(--color-charcoal);
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-cream);
+      color: var(--color-olive-dark);
+      padding: 6px 18px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-family: 'Fredoka', 'Prompt', sans-serif;
+      font-size: 2.4rem;
+      color: var(--color-olive-dark);
+      margin-bottom: 8px;
+    }
+
+    p.subtitle {
+      color: var(--color-charcoal-muted);
+      font-size: 1.05rem;
+    }
+
+    /* Color Palette Bar */
+    .palette-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 36px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .palette-title {
+      font-weight: 600;
+      color: var(--color-olive-dark);
+    }
+
+    .color-swatches {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .swatch {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .swatch-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    /* Cards Grid */
+    .designs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 36px;
+    }
+
+    @media (max-width: 768px) {
+      .designs-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .design-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      border: 1px solid rgba(110, 139, 61, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .design-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 48px rgba(46, 58, 31, 0.15);
+    }
+
+    .card-header {
+      margin-bottom: 20px;
+    }
+
+    .pill-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+
+    .pill-tag.tag-subscribe {
+      background: #EBF2D5;
+      color: var(--color-olive-dark);
+    }
+
+    .pill-tag.tag-member {
+      background: #F6E7CE;
+      color: #8A5200;
+    }
+
+    .card-header h2 {
+      font-size: 1.4rem;
+      color: var(--color-olive-dark);
+      margin-bottom: 6px;
+    }
+
+    .card-header p {
+      color: var(--color-charcoal-muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .image-preview-wrapper {
+      background: #F8F7F4;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      text-align: center;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #ECE7DE;
+    }
+
+    .image-preview-wrapper img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      display: block;
+      margin: 0 auto;
+    }
+
+    .specs-list {
+      list-style: none;
+      background: var(--bg-cream-light);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+
+    .specs-list li {
+      margin-bottom: 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .specs-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .specs-list li strong {
+      color: var(--color-olive-dark);
+      min-width: 120px;
+    }
+
+    .actions-row {
+      display: flex;
+      gap: 12px;
+      margin-top: auto;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 12px 20px;
+      border-radius: 999px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--color-olive-dark);
+      color: #FFF8EC;
+    }
+
+    .btn-primary:hover {
+      background: #212b16;
+      box-shadow: 0 6px 16px rgba(46, 58, 31, 0.25);
+    }
+
+    .btn-secondary {
+      background: var(--bg-cream);
+      color: var(--color-olive-dark);
+      border: 1px solid rgba(46, 58, 31, 0.12);
+    }
+
+    .btn-secondary:hover {
+      background: #ecd9bc;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      color: var(--color-charcoal-muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="brand-badge">
+        <span>🌿</span> GrobGrob Seaweed E-Commerce
+      </div>
+      <h1>Email Content Design System</h1>
+      <p class="subtitle">ภาพกราฟิก Content สำหรับส่งในอีเมลการตลาดและต้อนรับสมาชิก (ตรงตามแบรนด์และโทนสีของเว็บไซต์)</p>
+    </header>
+
+    <!-- Color Palette Section -->
+    <div class="palette-card">
+      <div class="palette-title">🎨 Theme Color Palette:</div>
+      <div class="color-swatches">
+        <div class="swatch">
+          <div class="swatch-circle" style="background: #FFFFFF;"></div>
+          <span>White (Base 75%)</span>
+        </div>
+        <div class="swatch">
+          <div class="swatch-circle" style="background: #F6E7CE;"></div>
+          <span>Cream #F6E7CE</span>
+        </div>
+        <div class="swatch">
+          <div class="swatch-circle" style="background: #2E3A1F;"></div>
+          <span>Olive Dark #2E3A1F</span>
+        </div>
+        <div class="swatch">
+          <div class="swatch-circle" style="background: #6E8B3D;"></div>
+          <span>Leaf Green #6E8B3D</span>
+        </div>
+        <div class="swatch">
+          <div class="swatch-circle" style="background: #A9C25A;"></div>
+          <span>Accent Dot #A9C25A</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid of 2 Designs -->
+    <div class="designs-grid">
+      
+      <!-- Design 1: Newsletter Subscribe (No Name) -->
+      <div class="design-card">
+        <div class="card-header">
+          <span class="pill-tag tag-subscribe">📩 EMAIL 1 • SUBSCRIPTION</span>
+          <h2>สำหรับผู้ติดตามข่าวสาร (ไม่มีชื่อลูกค้า)</h2>
+          <p>ส่งอัตโนมัติเมื่อผู้ใช้กรอกอีเมลเพื่อ Subscribe รับข่าวสาร/โปรโมชั่น ขอบคุณและมอบโค้ดส่วนลดแรกเข้า</p>
+        </div>
+
+        <div class="image-preview-wrapper">
+          <img src="subscribe_newsletter.jpg" alt="Newsletter Subscription Email Content Graphic" />
+        </div>
+
+        <ul class="specs-list">
+          <li><strong>กลุ่มเป้าหมาย:</strong> ผู้ที่ Subscribe รับข่าวสารทางเว็บไซต์</li>
+          <li><strong>การระบุชื่อ:</strong> ❌ ไม่มีชื่อลูกค้า (ข้อความกลาง ต้อนรับสู่ครอบครัวความกรอบ)</li>
+          <li><strong>จุดเด่นภาพ:</strong> โลโก้ GrobGrob, จานสาหร่ายอบกรอบแท้, ลายจุดและ organic blobs</li>
+          <li><strong>ข้อเสนอพิเศษ:</strong> โค้ดส่วนลด <code>WELCOME10</code> ลด 10%</li>
+          <li><strong>ปุ่ม CTA:</strong> "ช้อปความกรอบเลย"</li>
+        </ul>
+
+        <div class="actions-row">
+          <a href="subscribe_newsletter.jpg" download class="btn btn-primary">
+            <span>📥 ดาวน์โหลดรูปภาพ (JPG)</span>
+          </a>
+          <a href="subscribe_newsletter.html" target="_blank" class="btn btn-secondary">
+            <span>📄 ดู HTML Email Template</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Design 2: Member Welcome (With Customer Name) -->
+      <div class="design-card">
+        <div class="card-header">
+          <span class="pill-tag tag-member">👑 EMAIL 2 • MEMBER REGISTRATION</span>
+          <h2>สำหรับสมาชิกใหม่ของเว็บ (มีชื่อลูกค้า)</h2>
+          <p>ส่งอัตโนมัติหลังจากการสมัครสมาชิกสำเร็จ ระบุชื่อผู้ใช้ชัดเจน และแนะนำสิทธิประโยชน์สำหรับสมาชิก</p>
+        </div>
+
+        <div class="image-preview-wrapper">
+          <img src="member_welcome.jpg" alt="Member Registration Welcome Email Content Graphic" />
+        </div>
+
+        <ul class="specs-list">
+          <li><strong>กลุ่มเป้าหมาย:</strong> ผู้ใช้ที่ลงทะเบียนสมัครสมาชิกบนเว็บไซต์เสร็จสมบูรณ์</li>
+          <li><strong>การระบุชื่อ:</strong> ✅ มีชื่อลูกค้า <em>"สวัสดี คุณสมชาย ใจดี"</em> เด่นชัด</li>
+          <li><strong>จุดเด่นภาพ:</strong> ถ้วยสาหร่ายม้วนและแผ่นอบกรอบ, คอนเฟตติเฉลิมฉลอง, สไตล์อบอุ่น</li>
+          <li><strong>ข้อเสนอพิเศษ:</strong> โค้ดสมาชิก <code>GROB10</code> ลด 10% + ส่งฟรีเมื่อช้อปครบ 150 บ.</li>
+          <li><strong>ปุ่ม CTA:</strong> "เริ่มสั่งซื้อความกรอบเลย"</li>
+        </ul>
+
+        <div class="actions-row">
+          <a href="member_welcome.jpg" download class="btn btn-primary">
+            <span>📥 ดาวน์โหลดรูปภาพ (JPG)</span>
+          </a>
+          <a href="member_welcome.html" target="_blank" class="btn btn-secondary">
+            <span>📄 ดู HTML Email Template</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      <p>🌿 GrobGrob (กรอบกรอบ) Seaweed E-commerce • Brand Email Content Assets &copy; 2026</p>
+    </footer>
+  </div>
+
+</body>
+</html>

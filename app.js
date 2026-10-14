@@ -100,7 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
     async fetchUsersFromMySQL() {
       try {
         const isPythonPort = window.location.port === '8089';
-        const primaryApi = isPythonPort ? '/api/users' : 'api/users.php';
+        const base = (window.BACKEND_API_URL || '').replace(/\/$/, '');
+        const primaryApi = base ? `${base}/api/users.php` : (isPythonPort ? '/api/users' : 'api/users.php');
         const secondaryApi = isPythonPort ? 'api/users.php' : '/api/users';
         let res = await fetch(primaryApi).catch(() => null);
         if (!res || !res.ok) {
@@ -1113,7 +1114,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       try {
         const isPythonPort = window.location.port === '8089';
-        const primaryApi = isPythonPort ? '/api/checkout' : 'api/checkout.php';
+        const base = (window.BACKEND_API_URL || '').replace(/\/$/, '');
+        const primaryApi = base ? `${base}/api/checkout.php` : (isPythonPort ? '/api/checkout' : 'api/checkout.php');
         const secondaryApi = isPythonPort ? 'api/checkout.php' : '/api/checkout';
 
         let response = null;

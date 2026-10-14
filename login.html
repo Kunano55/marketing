@@ -100,6 +100,7 @@
     </div>
   </footer>
 
+  <script src="api-config.js"></script>
   <script src="app.js?v=6"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -127,7 +128,8 @@
           // 1. Authenticate with MySQL Backend API (PHP api/login.php or Python /api/login)
           let response = null;
           const isPythonPort = window.location.port === '8089';
-          const primaryApi = isPythonPort ? '/api/login' : 'api/login.php';
+          const base = (window.BACKEND_API_URL || '').replace(/\/$/, '');
+          const primaryApi = base ? `${base}/api/login.php` : (isPythonPort ? '/api/login' : 'api/login.php');
           const secondaryApi = isPythonPort ? 'api/login.php' : '/api/login';
 
           try {

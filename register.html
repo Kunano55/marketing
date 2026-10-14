@@ -394,6 +394,7 @@
     </div>
   </footer>
 
+  <script src="api-config.js"></script>
   <script src="app.js"></script>
   <script>
     function openTermsModal() {
@@ -525,7 +526,8 @@
           // 1. Send registration to MySQL API (PHP api/register.php or Python /api/register)
           let response = null;
           const isPythonPort = window.location.port === '8089';
-          const primaryApi = isPythonPort ? '/api/register' : 'api/register.php';
+          const base = (window.BACKEND_API_URL || '').replace(/\/$/, '');
+          const primaryApi = base ? `${base}/api/register.php` : (isPythonPort ? '/api/register' : 'api/register.php');
           const secondaryApi = isPythonPort ? 'api/register.php' : '/api/register';
 
           try {

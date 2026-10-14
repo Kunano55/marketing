@@ -258,6 +258,23 @@ function sendOrderConfirmationEmail($orderData) {
         $mail->Body    = $body;
         $mail->AltBody = "ขอบคุณสำหรับคำสั่งซื้อ #{$orderNo} จาก GrobGrob!\nสินค้าของคุณจะถูกจัดส่งถึงคุณในอีก {$minDays}-{$maxDays} วันทำการ (ภายใน {$estMinDate} - {$estMaxDate})\nยอดชำระสุทธิ: {$netAmount} บาท\nดูรายละเอียดเพิ่มเติมได้ที่เว็บไซต์ GrobGrob";
 
+        // ลองส่งผ่าน Resend HTTPS API (พอร์ต 443 สำหรับ Cloud / Render)
+        require_once __DIR__ . '/resendHelper.php';
+        if (function_exists('sendViaResendAPI')) {
+            $orderSubject = "📦 ยืนยันคำสั่งซื้อ #{$orderNo} จาก GrobGrob (คาดว่าจะถึงใน {$minDays}-{$maxDays} วันทำการ)";
+            if (sendViaResendAPI($customerEmail, $orderSubject, $body)) {
+                $logEntry = "[" . date('Y-m-d H:i:s') . "] SENT ORDER EMAIL VIA RESEND API: Order #{$orderNo} to {$customerEmail} ({$customerName}) | Net: {$netAmount} THB\n";
+                @file_put_contents(__DIR__ . '/order_emails_log.txt', $logEntry, FILE_APPEND);
+                return [
+                    'success' => true,
+                    'message' => 'ส่งอีเมลยืนยันคำสั่งซื้อสำเร็จ',
+                    'orderNo' => $orderNo,
+                    'estimatedDays' => "{$minDays}-{$maxDays}",
+                    'estimatedDateRange' => "{$estMinDate} - {$estMaxDate}"
+                ];
+            }
+        }
+
         $mail->send();
 
         // บันทึก log

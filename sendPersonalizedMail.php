@@ -174,7 +174,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </html>
         ";
 
-        $mail->send();
+        // ลองส่งผ่าน Resend HTTPS API (พอร์ต 443)
+        require_once __DIR__ . '/resendHelper.php';
+        $sentViaResend = false;
+        if (function_exists('sendViaResendAPI')) {
+            $persSubject = "🎯 สินค้าแนะนำเฉพาะคุณจาก GrobGrob ({$selectedFlavor['title']}) พร้อมโค้ดลด {$selectedFlavor['discount']}";
+            $sentViaResend = sendViaResendAPI($email, $persSubject, $mail->Body);
+        }
+
+        if (!$sentViaResend) {
+            $mail->send();
+        }
 
         // บันทึกลง personalized_leads.txt
         file_put_contents("personalized_leads.txt", date('Y-m-d H:i:s') . " | $email | $customerName | $category | $flavor\n", FILE_APPEND);

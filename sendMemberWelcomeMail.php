@@ -392,6 +392,16 @@ function sendMemberWelcomeEmail($toEmail, $fullName, $userId, $preferredCategory
 </html>
 ";
 
+        // ลองส่งผ่าน Resend HTTPS API (พอร์ต 443 สำหรับ Cloud / Render)
+        require_once __DIR__ . '/resendHelper.php';
+        if (function_exists('sendViaResendAPI')) {
+            $welcomeSubject = "🎉 ยินดีต้อนรับสู่ครอบครัว GrobGrob คุณ $fullName! รับคูปองส่วนลด 15% พร้อมสินค้าแนะนำ";
+            if (sendViaResendAPI($toEmail, $welcomeSubject, $mail->Body)) {
+                file_put_contents(__DIR__ . "/member_emails_log.txt", date('Y-m-d H:i:s') . " | Welcome email sent via Resend API to: $toEmail ($fullName - $userId)\n", FILE_APPEND);
+                return true;
+            }
+        }
+
         $mail->send();
         file_put_contents(__DIR__ . "/member_emails_log.txt", date('Y-m-d H:i:s') . " | Welcome email sent to: $toEmail ($fullName - $userId - Cat: $preferredCategory, Flav: $preferredFlavor)\n", FILE_APPEND);
         return true;

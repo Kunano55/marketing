@@ -6,3 +6,5 @@ order_emails_log.txt
 personalized_leads.txt
 subscribers.txt
 .agents/
+.env.php
+config.local.php

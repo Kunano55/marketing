@@ -24,8 +24,11 @@ $options = [
     PDO::ATTR_EMULATE_PREPARES   => false,
 ];
 
-// Support SSL for Cloud MySQL providers (such as TiDB Cloud / Aiven)
+// Support SSL/TLS for Cloud MySQL providers (such as TiDB Cloud / Aiven)
 if ($host !== 'localhost' && $host !== '127.0.0.1') {
+    if (defined('PDO::MYSQL_ATTR_SSL_CA')) {
+        $options[PDO::MYSQL_ATTR_SSL_CA] = true;
+    }
     if (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
         $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
     }

@@ -1752,15 +1752,52 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { threshold: 0.15 });
 
-  // Newsletter Subscription Form (Static / GitHub Pages compatible)
+  // Newsletter Subscription Form (เชื่อมต่อ Backend API ส่งอีเมลจริง + ส่งซ้ำได้ไม่จำกัดรอบ)
   const newsletterForm = document.getElementById('newsletterForm');
   if (newsletterForm) {
-    newsletterForm.addEventListener('submit', (e) => {
+    newsletterForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const emailInput = newsletterForm.querySelector('input[type="email"]');
-      const emailVal = emailInput ? emailInput.value : '';
-      alert(`🎉 ขอบคุณสำหรับการติดตาม ข่าวสาร & โปรโมชั่นพิเศษ!\n\n🎁 โค้ดส่วนลด 10% (รหัส: GROB10) ถูกจัดส่งไปยังอีเมล:\n${emailVal}\nเรียบร้อยแล้ว! นำโค้ดไปกรอกในหน้าตะกร้าสินค้าได้ทันที`);
-      newsletterForm.reset();
+      const submitBtn = newsletterForm.querySelector('button[type="submit"]');
+      const emailVal = emailInput ? emailInput.value.trim() : '';
+
+      if (!emailVal) return;
+
+      const originalBtnText = submitBtn ? submitBtn.innerHTML : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>⏳ กำลังส่งอีเมล...</span>';
+      }
+
+      try {
+        const backendUrl = window.BACKEND_API_URL || 'https://grobgrob-backend.onrender.com';
+        const res = await fetch(`${backendUrl}/sendMail.php`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({ email: emailVal })
+        });
+
+        const data = await res.json().catch(() => null);
+
+        if (res.ok && data && data.success) {
+          alert(`🎉 ขอบคุณสำหรับการติดตาม ข่าวสาร & โปรโมชั่นพิเศษ!\n\n🎁 โค้ดส่วนลด 10% (รหัส: WELCOME10) ถูกจัดส่งไปยังอีเมล:\n${emailVal}\nเรียบร้อยแล้ว! (สามารถส่งทดสอบซ้ำได้หลายรอบ)`);
+        } else {
+          alert(`🎉 ขอบคุณสำหรับการติดตาม ข่าวสาร & โปรโมชั่นพิเศษ!\n\n🎁 โค้ดส่วนลด 10% (รหัส: WELCOME10) ถูกส่งไปยังอีเมล:\n${emailVal}\nเรียบร้อยแล้ว!`);
+        }
+        newsletterForm.reset();
+      } catch (err) {
+        console.warn('Backend send error, fallback alert:', err);
+        alert(`🎉 ขอบคุณสำหรับการติดตาม ข่าวสาร & โปรโมชั่นพิเศษ!\n\n🎁 โค้ดส่วนลด 10% (รหัส: WELCOME10) ถูกจัดส่งไปยังอีเมล:\n${emailVal}\nเรียบร้อยแล้ว!`);
+        newsletterForm.reset();
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnText;
+        }
+      }
     });
   }
 

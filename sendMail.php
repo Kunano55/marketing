@@ -1,15 +1,30 @@
 <?php
+// CORS Headers สำหรับเชื่อมต่อจาก GitHub Pages
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 // โหลดไฟล์ PHPMailer class
-require 'PHPMailer/src/PHPMailer.php';
-require 'PHPMailer/src/SMTP.php';
-require 'PHPMailer/src/Exception.php';
+require_once __DIR__ . '/PHPMailer/src/PHPMailer.php';
+require_once __DIR__ . '/PHPMailer/src/SMTP.php';
+require_once __DIR__ . '/PHPMailer/src/Exception.php';
+
+// รองรับทั้ง JSON payload (จาก fetch) และ POST Form ปกติ
+$rawInput = file_get_contents('php://input');
+$jsonData = json_decode($rawInput, true);
+$isJson = !empty($jsonData) || (isset($_SERVER['CONTENT_TYPE']) && strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false);
 
 // ตรวจสอบการส่งข้อมูลผ่าน POST ที่ส่งจากฟอร์ม subscribe
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = filter_var($_POST['email'] ?? '', FILTER_VALIDATE_EMAIL);
+    $email = filter_var($jsonData['email'] ?? $_POST['email'] ?? '', FILTER_VALIDATE_EMAIL);
     if ($email) {
         $mail = new PHPMailer(true);
         try {
@@ -76,7 +91,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // บันทึกอีเมลผู้ติดตามลงไฟล์ subscribers.txt
             file_put_contents("subscribers.txt", date('Y-m-d H:i:s') . " - " . $email . "\n", FILE_APPEND);
 
-            // แสดงผลตอบกลับ
+            // ตอบกลับผลลัพธ์
+            if ($isJson) {
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode([
+                    'success' => true,
+                    'message' => 'ส่งโค้ดส่วนลด 10% ไปยังอีเมล ' . $email . ' สำเร็จเรียบร้อยแล้ว'
+                ], JSON_UNESCAPED_UNICODE);
+                exit();
+            }
+
+            // แสดงผลตอบกลับแบบหน้าเว็บ HTML
             echo "
             <!DOCTYPE html>
             <html lang='th'>
@@ -107,6 +132,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ";
 
         } catch (Exception $e) {
+            if ($isJson) {
+                http_response_code(500);
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode([
+                    'success' => false,
+                    'error' => 'ไม่สามารถส่งอีเมลได้: ' . $mail->ErrorInfo
+                ], JSON_UNESCAPED_UNICODE);
+                exit();
+            }
+
             echo "
             <!DOCTYPE html>
             <html lang='th'>
@@ -125,6 +160,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ";
         }
     } else {
+        if ($isJson) {
+            http_response_code(400);
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode([
+                'success' => false,
+                'error' => 'รูปแบบอีเมลไม่ถูกต้อง กรุณากรอกอีเมลที่ถูกต้อง'
+            ], JSON_UNESCAPED_UNICODE);
+            exit();
+        }
         echo "⚠ ไม่มีอีเมลล์นี้หรือไม่ถูกต้อง";
     }
 } else {

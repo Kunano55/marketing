@@ -43,46 +43,66 @@ if (empty($username) || empty($email) || empty($password) || empty($full_name)) 
 }
 
 try {
-    // Duplicate check
-    $stmt = $pdo->prepare("SELECT id FROM users WHERE LOWER(username) = LOWER(?) OR LOWER(email) = LOWER(?)");
+    // Duplicate check - หากมีบัญชีเดิมอยู่แล้ว ให้อัปเดตและส่งอีเมลต้อนรับซ้ำได้ (รองรับการทดสอบหลายรอบ)
+    $stmt = $pdo->prepare("SELECT id, user_id FROM users WHERE LOWER(username) = LOWER(?) OR LOWER(email) = LOWER(?) LIMIT 1");
     $stmt->execute([$username, $email]);
-    if ($stmt->fetch()) {
-        http_response_code(400);
-        echo json_encode(['success' => false, 'error' => 'ชื่อผู้ใช้หรืออีเมลนี้มีอยู่ในระบบแล้ว'], JSON_UNESCAPED_UNICODE);
-        exit();
+    $existingUser = $stmt->fetch();
+
+    if ($existingUser) {
+        $user_id = $existingUser['user_id'];
+        $updateSql = "
+            UPDATE users SET 
+                username = ?, email = ?, password = ?, full_name = ?, phone = ?,
+                birth_date = ?, gender = ?, address = ?, subdistrict = ?, district = ?,
+                province = ?, zipcode = ?, preferred_category = ?, preferred_flavor = ?,
+                terms_accepted = ?, marketing_consent = ?, registered_at = NOW()
+            WHERE id = ?
+        ";
+        $updateStmt = $pdo->prepare($updateSql);
+        $updateStmt->execute([
+            $username, $email, $password, $full_name, $phone,
+            $birth_date, $gender, $address, $subdistrict, $district,
+            $province, $zipcode, $preferred_category, $preferred_flavor,
+            $terms_accepted, $marketing_consent,
+            $existingUser['id']
+        ]);
+
+        $userStmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+        $userStmt->execute([$existingUser['id']]);
+        $createdUser = $userStmt->fetch();
+    } else {
+        // Auto generate unique user_id
+        $idStmt = $pdo->query("SELECT user_id FROM users");
+        $existingIds = $idStmt->fetchAll(PDO::FETCH_COLUMN);
+        $idx = 1;
+        while (in_array(sprintf('USER-2026-%03d', $idx), $existingIds)) {
+            $idx++;
+        }
+        $user_id = !empty($data['userId']) && !in_array($data['userId'], $existingIds) 
+            ? $data['userId'] 
+            : sprintf('USER-2026-%03d', $idx);
+
+        $insertSql = "
+            INSERT INTO users (
+                user_id, username, email, password, full_name, phone,
+                birth_date, gender, address, subdistrict, district,
+                province, zipcode, preferred_category, preferred_flavor,
+                terms_accepted, marketing_consent, registered_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
+        ";
+        $insertStmt = $pdo->prepare($insertSql);
+        $insertStmt->execute([
+            $user_id, $username, $email, $password, $full_name, $phone,
+            $birth_date, $gender, $address, $subdistrict, $district,
+            $province, $zipcode, $preferred_category, $preferred_flavor,
+            $terms_accepted, $marketing_consent
+        ]);
+
+        $newId = $pdo->lastInsertId();
+        $userStmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+        $userStmt->execute([$newId]);
+        $createdUser = $userStmt->fetch();
     }
-
-    // Auto generate unique user_id
-    $idStmt = $pdo->query("SELECT user_id FROM users");
-    $existingIds = $idStmt->fetchAll(PDO::FETCH_COLUMN);
-    $idx = 1;
-    while (in_array(sprintf('USER-2026-%03d', $idx), $existingIds)) {
-        $idx++;
-    }
-    $user_id = !empty($data['userId']) && !in_array($data['userId'], $existingIds) 
-        ? $data['userId'] 
-        : sprintf('USER-2026-%03d', $idx);
-
-    $insertSql = "
-        INSERT INTO users (
-            user_id, username, email, password, full_name, phone,
-            birth_date, gender, address, subdistrict, district,
-            province, zipcode, preferred_category, preferred_flavor,
-            terms_accepted, marketing_consent, registered_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
-    ";
-    $insertStmt = $pdo->prepare($insertSql);
-    $insertStmt->execute([
-        $user_id, $username, $email, $password, $full_name, $phone,
-        $birth_date, $gender, $address, $subdistrict, $district,
-        $province, $zipcode, $preferred_category, $preferred_flavor,
-        $terms_accepted, $marketing_consent
-    ]);
-
-    $newId = $pdo->lastInsertId();
-    $userStmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
-    $userStmt->execute([$newId]);
-    $createdUser = $userStmt->fetch();
 
     // ส่งอีเมลต้อนรับสมาชิกใหม่พร้อมสินค้าแนะนำตามความชอบผ่าน PHPMailer
     $emailSent = false;

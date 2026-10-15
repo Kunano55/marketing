@@ -601,23 +601,21 @@
 
         // Fallback if no backend available (e.g. GitHub Pages)
         const usersList = window.GrobAuth ? window.GrobAuth.getUsers() : [];
-        const existing = usersList.find(u =>
+        const existingIdx = usersList.findIndex(u =>
           (u.username && u.username.toLowerCase() === username.toLowerCase()) ||
           (u.email && u.email.toLowerCase() === email.toLowerCase())
         );
-        if (existing) {
-          alert('❌ ชื่อผู้ใช้หรืออีเมลนี้ถูกลงทะเบียนไว้แล้ว!');
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = originalBtnText;
-          return;
-        }
 
         const localUser = {
-          userId: `USER-2026-${String(usersList.length + 1).padStart(3, '0')}`,
+          userId: existingIdx > -1 ? usersList[existingIdx].userId : `USER-2026-${String(usersList.length + 1).padStart(3, '0')}`,
           ...newUserPayload,
           registeredAt: new Date().toISOString()
         };
-        usersList.push(localUser);
+        if (existingIdx > -1) {
+          usersList[existingIdx] = localUser;
+        } else {
+          usersList.push(localUser);
+        }
         if (window.GrobAuth) {
           window.GrobAuth.saveUsers(usersList);
           window.GrobAuth.setCurrentUser(localUser);

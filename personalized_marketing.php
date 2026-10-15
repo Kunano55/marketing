@@ -104,9 +104,21 @@
 
       <!-- ฟอร์มเลือกความชอบ -->
       <form id="persForm" action="sendPersonalizedMail.php" method="POST">
-        <!-- ส่งค่าชื่อและอีเมลของบัญชีที่ล็อกอินอยู่เบื้องหลังโดยอัตโนมัติ -->
-        <input type="hidden" id="customerName" name="customerName" value="" />
-        <input type="hidden" id="email" name="email" value="" />
+        <!-- ข้อมูลผู้รับอีเมล -->
+        <div style="background: #FDFBF7; border: 1.5px solid #E5E1D8; border-radius: 16px; padding: 18px 20px; margin-bottom: 24px;">
+          <div style="font-weight: bold; color: #2E3A1F; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+            <span>📬</span> ระบุอีเมลที่ต้องการรับข้อเสนอ & โค้ดลด 15% (ส่งซ้ำกี่รอบก็ได้):
+          </div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 220px;">
+              <input type="email" id="email" name="email" required placeholder="กรอกอีเมลของคุณ เช่น you@example.com" class="form-input" style="width: 100%; padding: 12px 16px; border: 2px solid #D8D2C4; border-radius: 12px; font-size: 0.95rem; outline: none; background: #fff;" />
+            </div>
+            <div style="width: 180px;">
+              <input type="text" id="customerName" name="customerName" placeholder="ชื่อของคุณ (ระบุหรือไม่ก็ได้)" class="form-input" style="width: 100%; padding: 12px 16px; border: 2px solid #D8D2C4; border-radius: 12px; font-size: 0.95rem; outline: none; background: #fff;" />
+            </div>
+          </div>
+          <small style="color: #888; display: block; margin-top: 6px;">💡 หากเข้าสู่ระบบไว้ ระบบจะดึงอีเมลของคุณมาใส่ให้อัตโนมัติ หรือจะพิมพ์อีเมลเพื่อส่งทดสอบได้ตลอดเวลา</small>
+        </div>
 
         <!-- 1. เลือกหมวดหมู่ -->
         <label style="font-weight: bold; color: #2E3A1F; display: block; margin-bottom: 8px;">1. รูปแบบสาหร่ายที่คุณชอบ:</label>
@@ -206,19 +218,20 @@
         }
       }
 
-      form.addEventListener('submit', (e) => {
-        const currentUser = getCurrentUser();
+      const currentUser = getCurrentUser();
+      if (currentUser && currentUser.email) {
+        if (emailInput && !emailInput.value) emailInput.value = currentUser.email;
+        if (customerNameInput && !customerNameInput.value) customerNameInput.value = currentUser.fullName || currentUser.username || '';
+      }
 
-        if (!currentUser || !currentUser.email) {
+      form.addEventListener('submit', (e) => {
+        const emailVal = emailInput ? emailInput.value.trim() : '';
+        if (!emailVal) {
           e.preventDefault();
-          alert('🔒 กรุณาเข้าสู่ระบบก่อน เพื่อให้ระบบส่งข้อเสนอพิเศษตรงไปยังอีเมลของคุณ');
-          window.location.href = 'login.html';
+          alert('กรุณากรอกอีเมลของคุณ');
+          if (emailInput) emailInput.focus();
           return;
         }
-
-        // กำหนดชื่อและอีเมลของบัญชีที่ล็อกอินอยู่ ส่งไปยัง sendPersonalizedMail.php
-        customerNameInput.value = currentUser.fullName || currentUser.username || 'สมาชิก GrobGrob';
-        emailInput.value = currentUser.email;
       });
     });
   </script>

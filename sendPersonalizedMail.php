@@ -1,4 +1,14 @@
 <?php
+// CORS Headers สำหรับเชื่อมต่อจาก GitHub Pages
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
 // sendPersonalizedMail.php - ข้อ 3: Personalized Marketing แนะนำสินค้าตามความสนใจส่งไปทางอีเมล
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -7,15 +17,24 @@ require_once __DIR__ . '/PHPMailer/src/PHPMailer.php';
 require_once __DIR__ . '/PHPMailer/src/SMTP.php';
 require_once __DIR__ . '/PHPMailer/src/Exception.php';
 
-header('Content-Type: text/html; charset=utf-8');
+// รองรับทั้ง JSON payload (จาก fetch) และ POST Form ปกติ
+$rawInput = file_get_contents('php://input');
+$jsonData = json_decode($rawInput, true);
+$isJson = !empty($jsonData) || (isset($_SERVER['CONTENT_TYPE']) && strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = filter_var($_POST['email'] ?? '', FILTER_VALIDATE_EMAIL);
-    $category = $_POST['category'] ?? 'sheet';   // sheet, roll, flake
-    $flavor = $_POST['flavor'] ?? 'spicy';       // spicy, original, bbq, wasabi
-    $customerName = trim($_POST['customerName'] ?? 'คุณลูกค้าคนพิเศษ');
+    $email = filter_var($jsonData['email'] ?? $_POST['email'] ?? '', FILTER_VALIDATE_EMAIL);
+    $category = $jsonData['category'] ?? $_POST['category'] ?? 'sheet';   // sheet, roll, flake
+    $flavor = $jsonData['flavor'] ?? $_POST['flavor'] ?? 'spicy';       // spicy, original, bbq, wasabi
+    $customerName = trim($jsonData['customerName'] ?? $_POST['customerName'] ?? 'คุณลูกค้าคนพิเศษ');
 
     if (!$email) {
+        if ($isJson) {
+            http_response_code(400);
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['success' => false, 'error' => 'กรุณากรอกอีเมลให้ถูกต้อง'], JSON_UNESCAPED_UNICODE);
+            exit();
+        }
         echo "<script>alert('กรุณากรอกอีเมลให้ถูกต้อง'); history.back();</script>";
         exit();
     }
@@ -193,6 +212,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // บันทึกลง personalized_leads.txt
         file_put_contents("personalized_leads.txt", date('Y-m-d H:i:s') . " | $email | $customerName | $category | $flavor\n", FILE_APPEND);
 
+        if ($isJson) {
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode([
+                'success' => true,
+                'message' => "ส่งคำแนะนำ {$selectedCatName} ({$selectedFlavor['title']}) พร้อมโค้ดส่วนลด {$selectedFlavor['coupon']} ไปยัง $email เรียบร้อยแล้ว",
+                'coupon' => $selectedFlavor['coupon'],
+                'discount' => $selectedFlavor['discount'],
+                'title' => $selectedFlavor['title']
+            ], JSON_UNESCAPED_UNICODE);
+            exit();
+        }
+
         echo "
         <!DOCTYPE html>
         <html lang='th'>
@@ -218,9 +249,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ";
 
     } catch (Exception $e) {
+        if ($isJson) {
+            http_response_code(500);
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode([
+                'success' => false,
+                'error' => 'เกิดข้อผิดพลาดในการส่งอีเมล: ' . $mail->ErrorInfo
+            ], JSON_UNESCAPED_UNICODE);
+            exit();
+        }
         echo "<script>alert('เกิดข้อผิดพลาดในการส่งอีเมล: {$mail->ErrorInfo}'); history.back();</script>";
     }
 } else {
-    header('Location: personalized_marketing.php');
+    header('Location: personalized_marketing.html');
     exit();
 }
